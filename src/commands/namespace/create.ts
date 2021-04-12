@@ -1,9 +1,12 @@
 import {Command, flags} from '@oclif/command'
-import { getApi } from '../../api';
+import { agent, api } from '../../api';
+import { getDb } from '../../knex';
 
 
 export default class NamespaceCreate extends Command {
-  static description = 'describe the command here'
+  static description = 'Create a new namespace'
+  static aliases = ['namespaces:create']
+
 
   static flags = {
     // help: flags.help({char: 'h'}),
@@ -17,11 +20,18 @@ export default class NamespaceCreate extends Command {
 
   async run() {
     const {args, flags} = this.parse(NamespaceCreate)
-    const api = await getApi(this.config);
+    const isLoggedIn = await api.isLoggedIn();
 
-
-    const namespace = await api.post('/namespaces', {});
-
-    this.log(namespace.data);
+    try {
+      const namespaceCode = await api.createNamespace();
+      this.log('Namespace created !');
+      this.log('Namespace code:', namespaceCode);
+      if (!isLoggedIn) {
+        this.log(`You are not logged in, so this temporary namespace's access key as been saved locally.`)
+      }
+      api.setCurrentNamespace(namespaceCode);
+    } catch (e) {
+      this.error(e);
+    }
   }
 }

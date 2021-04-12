@@ -1,5 +1,5 @@
 import {Command, flags} from '@oclif/command';
-import { getApi } from '../api';
+import { agent } from '../api';
 import cli from 'cli-ux'
 
 export default class Login extends Command {
@@ -17,12 +17,11 @@ export default class Login extends Command {
 
   async run() {
     const {args, flags} = this.parse(Login);
-    const api = await getApi(this.config);
 
     const email = await cli.prompt('Email');
     const password = await cli.prompt('Password');
 
-    const response = await api.post(`/auth/login`, { email, password });
+    const response = await agent().post(`/auth/login`, { email, password });
 
     if (response.status === 200) { this.log('connected'); }
     else {

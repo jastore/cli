@@ -1,5 +1,5 @@
 import {Command, flags} from '@oclif/command'
-import { getApi } from '../api';
+import { agent, api } from '../api';
 
 
 export default class Profile extends Command {
@@ -17,14 +17,12 @@ export default class Profile extends Command {
 
   async run() {
     const {args, flags} = this.parse(Profile)
-    const api = await getApi(this.config);
 
     try {
-      const { data : profile } = await api.get('/auth/profile');
+      const profile = await api.getProfile();
       this.log(profile)
     } catch (e) {
-      // console.error(e);
-      console.log(e.response.headers)
+      // console.log(e.response.headers)
       if (e.response?.status === 401) {
         this.log(`Not connected`);
       } else {

@@ -15,3 +15,8 @@ export const getDb = (config: any) => {
 
   return knex;
 }
+
+export const saveNamespace = async (namespace: any) => {
+  if (!knex) { throw 'database not initialized' }
+  // const db = 
+}
