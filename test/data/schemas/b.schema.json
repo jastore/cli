@@ -1,0 +1,8 @@
+{
+  "title": "testb",
+  "type" : "object",
+  "properties": {
+    "c" : { "type" : "string" },
+    "d" : { "type" : "number"}
+  }
+}

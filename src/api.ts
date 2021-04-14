@@ -37,7 +37,7 @@ export const reset = async (cliConfig: IConfig) => {
 export const agent = () => apiInstance;
 
 export const api = {
-  getCurrentNamespace () {
+  getCurrentNamespace (): string {
     return store.apiCurrentNamespace;
   },
   setCurrentNamespace (namespaceCode: string) {
@@ -63,6 +63,21 @@ export const api = {
     return namespace;
   },
 
+  async listNamespaceResources (namespace: string): Promise<any[]> {
+    const key = store.tmpNamespacesKeys?.[namespace];
+    const headers = key ? { authorization : key } : {};
+
+    const { data } = await agent().get(`/namespaces/${namespace}/resources`, { headers });
+
+    return data;
+  },
+
+  async fetchResource (namespace: string, resource: string): Promise<any> { // TODO why no key, does that work ?
+    const { data } = await agent().get(`/namespaces/${namespace}/resource/${resource}`);
+
+    return data;
+  },
+
   async createResource (namespace?: string, resource?: Record<string, any>, createNamespace?: boolean): Promise<any> {
     let namespaceCode = namespace || this.getCurrentNamespace();
     const key = store.tmpNamespacesKeys?.[namespaceCode];
@@ -79,6 +94,19 @@ export const api = {
     const { data } = await agent().post(`/namespaces/${namespaceCode}/resources`, resource || {}, { headers });
 
     return data;
-  }
+  },
+
+  async updateResource (namespace: string, resourceName: string, resource: Record<string,any>) {
+    let namespaceCode = namespace || this.getCurrentNamespace();
+    const key = store.tmpNamespacesKeys?.[namespaceCode];
+
+    const headers = key ? { authorization : key } : {};
+    const { data } = await agent().put(`/namespaces/${namespaceCode}/resources/${resourceName}`, {
+      ...resource,
+      name: resourceName,
+    }, { headers });
+
+    return data;
+  },
   
 }

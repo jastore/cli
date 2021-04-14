@@ -21,19 +21,29 @@ export default class ResourceCreate extends Command {
     const {args, flags} = this.parse(ResourceCreate);
     const namespace = flags.namespace || api.getCurrentNamespace();
     console.log('args', args);
-    const resourceName = args.resourceName;
+    
 
-    if (!resourceName) {
-      this.error(`You must provide a name for this resource.`);
-      this.error(`example: `);
-      this.error(`    jastore resource:create --schema ./schema.json <name>`);
-    }
-
-    // const resourceName = await cli.prompt('Resource name');
     let schema = null as any;
     if (flags.schema) {
       schema = await fs.readJSON(flags.schema);
     }
+
+    let resourceName = args.resourceName;
+    if (!resourceName) {
+
+      if (schema && flags.schema?.match(/^[a-zA-Z0-9_\-]+\.schema\.json$/)) {
+        resourceName = flags.schema.split(`.schema.json`).unshift();
+      } else {
+
+        this.log(`You must provide a name for this resource.`);
+        this.log(`example: `);
+        this.log(`    jastore resource:create --schema ./schema.json <name>`);
+  
+        return this.exit(1);
+      }
+    }
+
+
     if (!schema) {
       const useEmpty = await cli.confirm(`No schema provided, create a resource with an empty json schema ? (you can still add it after) (y/n)`)
       if (!useEmpty) { return this.exit() }
