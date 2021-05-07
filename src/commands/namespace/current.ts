@@ -2,7 +2,7 @@ import {Command, flags} from '@oclif/command'
 import { api } from '../../api';
 
 export default class NamespaceCurrent extends Command {
-  static description = 'Prints the currently selected namespace'
+  static description = 'Display the currently selected namespace'
   static aliases = ['namespaces:current']
 
 

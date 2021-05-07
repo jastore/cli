@@ -28,39 +28,21 @@ USAGE
 <!-- usagestop -->
 # Commands
 <!-- commands -->
-* [`jastore hello [FILE]`](#jastore-hello-file)
 * [`jastore help [COMMAND]`](#jastore-help-command)
 * [`jastore login [FILE]`](#jastore-login-file)
+* [`jastore namespace [FILE]`](#jastore-namespace-file)
 * [`jastore namespace:create [FILE]`](#jastore-namespacecreate-file)
 * [`jastore namespace:current [NAMESPACE]`](#jastore-namespacecurrent-namespace)
+* [`jastore namespace:endpoints [FILE]`](#jastore-namespaceendpoints-file)
 * [`jastore namespace:list [FILE]`](#jastore-namespacelist-file)
 * [`jastore profile [FILE]`](#jastore-profile-file)
 * [`jastore reset [FILE]`](#jastore-reset-file)
 * [`jastore resource:create [RESOURCENAME]`](#jastore-resourcecreate-resourcename)
+* [`jastore resource:get RESOURCE`](#jastore-resourceget-resource)
 * [`jastore resource:list [FILE]`](#jastore-resourcelist-file)
 * [`jastore resource:sync [FOLDER]`](#jastore-resourcesync-folder)
 * [`jastore signup [FILE]`](#jastore-signup-file)
 * [`jastore status [FILE]`](#jastore-status-file)
-
-## `jastore hello [FILE]`
-
-describe the command here
-
-```
-USAGE
-  $ jastore hello [FILE]
-
-OPTIONS
-  -f, --force
-  -h, --help       show CLI help
-  -n, --name=name  name to print
-
-EXAMPLE
-  $ jastore hello
-  hello world from ./src/hello.ts!
-```
-
-_See code: [src/commands/hello.ts](https://github.com/projets/jastore-cli/blob/v0.0.0/src/commands/hello.ts)_
 
 ## `jastore help [COMMAND]`
 
@@ -81,7 +63,7 @@ _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v3.2.2
 
 ## `jastore login [FILE]`
 
-describe the command here
+Log in to manage the namespaces and resources associated to your user.
 
 ```
 USAGE
@@ -89,6 +71,22 @@ USAGE
 ```
 
 _See code: [src/commands/login.ts](https://github.com/projets/jastore-cli/blob/v0.0.0/src/commands/login.ts)_
+
+## `jastore namespace [FILE]`
+
+describe the command here
+
+```
+USAGE
+  $ jastore namespace [FILE]
+
+OPTIONS
+  -f, --force
+  -h, --help       show CLI help
+  -n, --name=name  name to print
+```
+
+_See code: [src/commands/namespace.ts](https://github.com/projets/jastore-cli/blob/v0.0.0/src/commands/namespace.ts)_
 
 ## `jastore namespace:create [FILE]`
 
@@ -118,6 +116,24 @@ ALIASES
 
 _See code: [src/commands/namespace/current.ts](https://github.com/projets/jastore-cli/blob/v0.0.0/src/commands/namespace/current.ts)_
 
+## `jastore namespace:endpoints [FILE]`
+
+List endpoints for a namespace
+
+```
+USAGE
+  $ jastore namespace:endpoints [FILE]
+
+OPTIONS
+  -n, --namespace=namespace  namespace code, (default to current namespace)
+
+ALIASES
+  $ jastore namespaces:endpoints
+  $ jastore endpoints
+```
+
+_See code: [src/commands/namespace/endpoints.ts](https://github.com/projets/jastore-cli/blob/v0.0.0/src/commands/namespace/endpoints.ts)_
+
 ## `jastore namespace:list [FILE]`
 
 List the namespaces you have access to.
@@ -135,7 +151,7 @@ _See code: [src/commands/namespace/list.ts](https://github.com/projets/jastore-c
 
 ## `jastore profile [FILE]`
 
-describe the command here
+Print the current user profile
 
 ```
 USAGE
@@ -170,25 +186,47 @@ OPTIONS
 
 _See code: [src/commands/resource/create.ts](https://github.com/projets/jastore-cli/blob/v0.0.0/src/commands/resource/create.ts)_
 
+## `jastore resource:get RESOURCE`
+
+print details about a resource
+
+```
+USAGE
+  $ jastore resource:get RESOURCE
+
+OPTIONS
+  -n, --namespace=namespace  namespace code, (default to current namespace)
+
+ALIASES
+  $ jastore resources:get
+  $ jastore resource
+  $ jastore resources
+```
+
+_See code: [src/commands/resource/get.ts](https://github.com/projets/jastore-cli/blob/v0.0.0/src/commands/resource/get.ts)_
+
 ## `jastore resource:list [FILE]`
 
-describe the command here
+list all resources in a namespace
 
 ```
 USAGE
   $ jastore resource:list [FILE]
 
 OPTIONS
-  -f, --force
-  -h, --help       show CLI help
-  -n, --name=name  name to print
+  -n, --namespace=namespace  namespace code, (default to current namespace)
+
+ALIASES
+  $ jastore resources:list
+  $ jastore resources
+  $ jastore resource
 ```
 
 _See code: [src/commands/resource/list.ts](https://github.com/projets/jastore-cli/blob/v0.0.0/src/commands/resource/list.ts)_
 
 ## `jastore resource:sync [FOLDER]`
 
-describe the command here
+Sync a folder containing resources and schemas
 
 ```
 USAGE
@@ -196,13 +234,17 @@ USAGE
 
 OPTIONS
   -n, --namespace=namespace  namespace code, (default to current namespace)
+
+ALIASES
+  $ jastore resources:sync
+  $ jastore sync
 ```
 
 _See code: [src/commands/resource/sync.ts](https://github.com/projets/jastore-cli/blob/v0.0.0/src/commands/resource/sync.ts)_
 
 ## `jastore signup [FILE]`
 
-describe the command here
+Sign up to jastore to create permanent stores and link the resources you create to your user
 
 ```
 USAGE
@@ -218,7 +260,7 @@ _See code: [src/commands/signup.ts](https://github.com/projets/jastore-cli/blob/
 
 ## `jastore status [FILE]`
 
-describe the command here
+Print the current status of jastore
 
 ```
 USAGE

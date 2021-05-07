@@ -53,7 +53,7 @@ export default class ResourceCreate extends Command {
     this.log(`We are about to create the following resource:`);
     this.log(`Name: ${resourceName}`);
     this.log(`Namespace: `, namespace);
-    this.log(`JSON Schema: `, schema ? flags.schema : `(empty)`);
+    this.log(`JSON Schema: `, schema);
     
     await cli.anykey(`Press any key to continue...`);
 

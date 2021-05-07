@@ -3,7 +3,7 @@ import { agent, api } from '../api';
 import cli from 'cli-ux';
 
 export default class Signup extends Command {
-  static description = 'describe the command here'
+  static description = 'Sign up to jastore to create permanent stores and link the resources you create to your user'
 
   static flags = {
     help: flags.help({char: 'h'}),

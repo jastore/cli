@@ -19,10 +19,17 @@ export default class ResourceSync extends Command {
   async run() {
     const {args, flags} = this.parse(ResourceSync);
     const namespace = flags.namespace || api.getCurrentNamespace();
+    const folderStats = await fs.lstat(args.folder);
+    let files: string[] = [];
 
-    const dirs = await fs.readdir(args.folder);
+    if (folderStats.isDirectory()) {
+      files = await fs.readdir(args.folder);
+    } else {
+      files = [''];
+    }
 
-    for (const file of dirs) {
+
+    for (const file of files) {
       const filePath = path.join(args.folder, file);
       const name = await guessSchemaNameFromFilePath(filePath);
       if (name) {

@@ -28,6 +28,7 @@ export default class NamespaceCreate extends Command {
       this.log('Namespace code:', namespaceCode);
       if (!isLoggedIn) {
         this.log(`You are not logged in, so this temporary namespace's access key as been saved locally.`)
+        this.log(`Log in to claim this namespace and associate it to your account.`)
       }
       api.setCurrentNamespace(namespaceCode);
     } catch (e) {

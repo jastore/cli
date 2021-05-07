@@ -73,7 +73,10 @@ export const api = {
   },
 
   async fetchResource (namespace: string, resource: string): Promise<any> { // TODO why no key, does that work ?
-    const { data } = await agent().get(`/namespaces/${namespace}/resource/${resource}`);
+    const key = store.tmpNamespacesKeys?.[namespace];
+    const headers = key ? { authorization : key } : {};
+
+    const { data } = await agent().get(`/namespaces/${namespace}/resources/${resource}`, { headers });
 
     return data;
   },
