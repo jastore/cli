@@ -28,21 +28,157 @@ USAGE
 <!-- usagestop -->
 # Commands
 <!-- commands -->
+* [`jastore access`](#jastore-access)
+* [`jastore access:create`](#jastore-accesscreate)
+* [`jastore access:delete ACCESS`](#jastore-accessdelete-access)
+* [`jastore access:list`](#jastore-accesslist)
+* [`jastore groups`](#jastore-groups)
+* [`jastore groups:add-user`](#jastore-groupsadd-user)
+* [`jastore groups:create [GROUP]`](#jastore-groupscreate-group)
+* [`jastore groups:list`](#jastore-groupslist)
 * [`jastore help [COMMAND]`](#jastore-help-command)
 * [`jastore login [FILE]`](#jastore-login-file)
-* [`jastore namespace [FILE]`](#jastore-namespace-file)
+* [`jastore namespace`](#jastore-namespace)
 * [`jastore namespace:create [FILE]`](#jastore-namespacecreate-file)
 * [`jastore namespace:current [NAMESPACE]`](#jastore-namespacecurrent-namespace)
 * [`jastore namespace:endpoints [FILE]`](#jastore-namespaceendpoints-file)
-* [`jastore namespace:list [FILE]`](#jastore-namespacelist-file)
+* [`jastore namespace:get [FILE]`](#jastore-namespaceget-file)
+* [`jastore namespace:list`](#jastore-namespacelist)
+* [`jastore namespace:set [FILE]`](#jastore-namespaceset-file)
 * [`jastore profile [FILE]`](#jastore-profile-file)
 * [`jastore reset [FILE]`](#jastore-reset-file)
+* [`jastore resource`](#jastore-resource)
 * [`jastore resource:create [RESOURCENAME]`](#jastore-resourcecreate-resourcename)
 * [`jastore resource:get RESOURCE`](#jastore-resourceget-resource)
-* [`jastore resource:list [FILE]`](#jastore-resourcelist-file)
+* [`jastore resource:list`](#jastore-resourcelist)
+* [`jastore resource:set RESOURCE`](#jastore-resourceset-resource)
 * [`jastore resource:sync [FOLDER]`](#jastore-resourcesync-folder)
 * [`jastore signup [FILE]`](#jastore-signup-file)
 * [`jastore status [FILE]`](#jastore-status-file)
+* [`jastore user`](#jastore-user)
+* [`jastore user:get [USER]`](#jastore-userget-user)
+* [`jastore user:groups [USER]`](#jastore-usergroups-user)
+
+## `jastore access`
+
+Manage access control
+
+```
+USAGE
+  $ jastore access
+```
+
+_See code: [src/commands/access.ts](https://github.com/projets/jastore-cli/blob/v0.0.0/src/commands/access.ts)_
+
+## `jastore access:create`
+
+Give a user acces to a resource
+
+```
+USAGE
+  $ jastore access:create
+
+OPTIONS
+  -a, --rights=rights        (required) rights to give to the user group of that resource ('CRUD')
+  -g, --group=group          (required) user group name
+  -n, --namespace=namespace  namespace code, (default to current namespace)
+  -r, --resource=resource    (required) resource name
+```
+
+_See code: [src/commands/access/create.ts](https://github.com/projets/jastore-cli/blob/v0.0.0/src/commands/access/create.ts)_
+
+## `jastore access:delete ACCESS`
+
+Delete an access control record
+
+```
+USAGE
+  $ jastore access:delete ACCESS
+
+ARGUMENTS
+  ACCESS  uuid of the access-control record to delete
+
+OPTIONS
+  -n, --namespace=namespace  namespace code, (default to current namespace)
+  -r, --resource=resource    (required) resource name
+```
+
+_See code: [src/commands/access/delete.ts](https://github.com/projets/jastore-cli/blob/v0.0.0/src/commands/access/delete.ts)_
+
+## `jastore access:list`
+
+List the resources accessible for each user group
+
+```
+USAGE
+  $ jastore access:list
+
+OPTIONS
+  -n, --namespace=namespace  namespace code, (default to current namespace)
+```
+
+_See code: [src/commands/access/list.ts](https://github.com/projets/jastore-cli/blob/v0.0.0/src/commands/access/list.ts)_
+
+## `jastore groups`
+
+Manage user groups
+
+```
+USAGE
+  $ jastore groups
+
+ALIASES
+  $ jastore group
+```
+
+_See code: [src/commands/groups.ts](https://github.com/projets/jastore-cli/blob/v0.0.0/src/commands/groups.ts)_
+
+## `jastore groups:add-user`
+
+Add a user to a group
+
+```
+USAGE
+  $ jastore groups:add-user
+
+OPTIONS
+  -g, --group=group          name of the group
+  -n, --namespace=namespace  namespace code, (default to current namespace)
+  -u, --user=user            email of the user
+```
+
+_See code: [src/commands/groups/add-user.ts](https://github.com/projets/jastore-cli/blob/v0.0.0/src/commands/groups/add-user.ts)_
+
+## `jastore groups:create [GROUP]`
+
+Create a user group
+
+```
+USAGE
+  $ jastore groups:create [GROUP]
+
+ARGUMENTS
+  GROUP  name of the group you want to create
+
+OPTIONS
+  -n, --namespace=namespace  namespace code, (default to current namespace)
+```
+
+_See code: [src/commands/groups/create.ts](https://github.com/projets/jastore-cli/blob/v0.0.0/src/commands/groups/create.ts)_
+
+## `jastore groups:list`
+
+List user groups for a particular namespace
+
+```
+USAGE
+  $ jastore groups:list
+
+OPTIONS
+  -n, --namespace=namespace  namespace code, (default to current namespace)
+```
+
+_See code: [src/commands/groups/list.ts](https://github.com/projets/jastore-cli/blob/v0.0.0/src/commands/groups/list.ts)_
 
 ## `jastore help [COMMAND]`
 
@@ -72,18 +208,16 @@ USAGE
 
 _See code: [src/commands/login.ts](https://github.com/projets/jastore-cli/blob/v0.0.0/src/commands/login.ts)_
 
-## `jastore namespace [FILE]`
+## `jastore namespace`
 
-describe the command here
+Manage namespaces
 
 ```
 USAGE
-  $ jastore namespace [FILE]
+  $ jastore namespace
 
-OPTIONS
-  -f, --force
-  -h, --help       show CLI help
-  -n, --name=name  name to print
+ALIASES
+  $ jastore namespaces
 ```
 
 _See code: [src/commands/namespace.ts](https://github.com/projets/jastore-cli/blob/v0.0.0/src/commands/namespace.ts)_
@@ -104,7 +238,7 @@ _See code: [src/commands/namespace/create.ts](https://github.com/projets/jastore
 
 ## `jastore namespace:current [NAMESPACE]`
 
-Prints the currently selected namespace
+Set current namespace
 
 ```
 USAGE
@@ -134,13 +268,27 @@ ALIASES
 
 _See code: [src/commands/namespace/endpoints.ts](https://github.com/projets/jastore-cli/blob/v0.0.0/src/commands/namespace/endpoints.ts)_
 
-## `jastore namespace:list [FILE]`
+## `jastore namespace:get [FILE]`
+
+describe the command here
+
+```
+USAGE
+  $ jastore namespace:get [FILE]
+
+OPTIONS
+  -n, --namespace=namespace  namespace code, (default to current namespace)
+```
+
+_See code: [src/commands/namespace/get.ts](https://github.com/projets/jastore-cli/blob/v0.0.0/src/commands/namespace/get.ts)_
+
+## `jastore namespace:list`
 
 List the namespaces you have access to.
 
 ```
 USAGE
-  $ jastore namespace:list [FILE]
+  $ jastore namespace:list
 
 ALIASES
   $ jastore namespaces:list
@@ -149,9 +297,25 @@ ALIASES
 
 _See code: [src/commands/namespace/list.ts](https://github.com/projets/jastore-cli/blob/v0.0.0/src/commands/namespace/list.ts)_
 
+## `jastore namespace:set [FILE]`
+
+describe the command here
+
+```
+USAGE
+  $ jastore namespace:set [FILE]
+
+OPTIONS
+  -f, --force
+  -h, --help       show CLI help
+  -n, --name=name  name to print
+```
+
+_See code: [src/commands/namespace/set.ts](https://github.com/projets/jastore-cli/blob/v0.0.0/src/commands/namespace/set.ts)_
+
 ## `jastore profile [FILE]`
 
-Print the current user profile
+Print your user profile
 
 ```
 USAGE
@@ -171,9 +335,23 @@ USAGE
 
 _See code: [src/commands/reset.ts](https://github.com/projets/jastore-cli/blob/v0.0.0/src/commands/reset.ts)_
 
+## `jastore resource`
+
+Manage resources
+
+```
+USAGE
+  $ jastore resource
+
+ALIASES
+  $ jastore resources
+```
+
+_See code: [src/commands/resource.ts](https://github.com/projets/jastore-cli/blob/v0.0.0/src/commands/resource.ts)_
+
 ## `jastore resource:create [RESOURCENAME]`
 
-describe the command here
+create a resource in a namespace
 
 ```
 USAGE
@@ -188,7 +366,7 @@ _See code: [src/commands/resource/create.ts](https://github.com/projets/jastore-
 
 ## `jastore resource:get RESOURCE`
 
-print details about a resource
+Display details about a resource
 
 ```
 USAGE
@@ -199,19 +377,17 @@ OPTIONS
 
 ALIASES
   $ jastore resources:get
-  $ jastore resource
-  $ jastore resources
 ```
 
 _See code: [src/commands/resource/get.ts](https://github.com/projets/jastore-cli/blob/v0.0.0/src/commands/resource/get.ts)_
 
-## `jastore resource:list [FILE]`
+## `jastore resource:list`
 
 list all resources in a namespace
 
 ```
 USAGE
-  $ jastore resource:list [FILE]
+  $ jastore resource:list
 
 OPTIONS
   -n, --namespace=namespace  namespace code, (default to current namespace)
@@ -224,6 +400,21 @@ ALIASES
 
 _See code: [src/commands/resource/list.ts](https://github.com/projets/jastore-cli/blob/v0.0.0/src/commands/resource/list.ts)_
 
+## `jastore resource:set RESOURCE`
+
+modify a resource
+
+```
+USAGE
+  $ jastore resource:set RESOURCE
+
+OPTIONS
+  -n, --namespace=namespace  namespace code, (default to current namespace)
+  -s, --schema=schema        path of the json schema file to use as the json schema for that resource
+```
+
+_See code: [src/commands/resource/set.ts](https://github.com/projets/jastore-cli/blob/v0.0.0/src/commands/resource/set.ts)_
+
 ## `jastore resource:sync [FOLDER]`
 
 Sync a folder containing resources and schemas
@@ -234,6 +425,7 @@ USAGE
 
 OPTIONS
   -n, --namespace=namespace  namespace code, (default to current namespace)
+  --dry-run                  output the operation that are going to be performed, without actualy performing them
 
 ALIASES
   $ jastore resources:sync
@@ -268,4 +460,43 @@ USAGE
 ```
 
 _See code: [src/commands/status.ts](https://github.com/projets/jastore-cli/blob/v0.0.0/src/commands/status.ts)_
+
+## `jastore user`
+
+Manage namespace users
+
+```
+USAGE
+  $ jastore user
+```
+
+_See code: [src/commands/user.ts](https://github.com/projets/jastore-cli/blob/v0.0.0/src/commands/user.ts)_
+
+## `jastore user:get [USER]`
+
+Display informations about a user in a namespace
+
+```
+USAGE
+  $ jastore user:get [USER]
+
+OPTIONS
+  -n, --namespace=namespace  namespace code, (default to current namespace)
+```
+
+_See code: [src/commands/user/get.ts](https://github.com/projets/jastore-cli/blob/v0.0.0/src/commands/user/get.ts)_
+
+## `jastore user:groups [USER]`
+
+List the groups a user is part of
+
+```
+USAGE
+  $ jastore user:groups [USER]
+
+OPTIONS
+  -n, --namespace=namespace  namespace code, (default to current namespace)
+```
+
+_See code: [src/commands/user/groups.ts](https://github.com/projets/jastore-cli/blob/v0.0.0/src/commands/user/groups.ts)_
 <!-- commandsstop -->

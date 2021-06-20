@@ -20,7 +20,7 @@ export default class Reset extends Command {
   async run() {
     const {args, flags} = this.parse(Reset)
 
-    await cli.confirm(`This will reset all local data and delete all temporary namespaces keys... continue ?`);
+    await cli.confirm(`This will reset all local data and delete all temporary namespaces keys... continue ? (y/n)`);
 
     await reset(this.config);
     await apiReset(this.config);

@@ -3,7 +3,7 @@ import { agent, api } from '../api';
 
 
 export default class Profile extends Command {
-  static description = `Print the current user profile`;
+  static description = `Print your user profile`;
   static flags = {
   }
 

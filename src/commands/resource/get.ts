@@ -3,8 +3,8 @@ import { agent, api } from '../../api';
 import cli from 'cli-ux';
 
 export default class ResourceGet extends Command {
-  static description = 'print details about a resource';
-  static aliases = ['resources:get', 'resource', 'resources'];
+  static description = 'Display details about a resource';
+  static aliases = ['resources:get'];
 
 
   static flags = {

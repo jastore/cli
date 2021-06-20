@@ -4,6 +4,8 @@ import cli from 'cli-ux';
 import * as fs from 'fs-extra';
 import * as path from 'path';
 import { guessSchemaNameFromFilePath } from '../../utils/schemaUtils';
+import chalk = require('chalk');
+import { printCurrentNamespace } from '../../helpers/namespaces/printCurrentNamespace';
 
 export default class ResourceSync extends Command {
   static description = 'Sync a folder containing resources and schemas';
@@ -12,6 +14,7 @@ export default class ResourceSync extends Command {
 
   static flags = {
     namespace: flags.string({char: 'n', description: `namespace code, (default to current namespace)`}),
+    'dry-run' : flags.boolean({ description : `output the operation that are going to be performed, without actualy performing them` }),
   }
 
   static args = [{name: 'folder'}]
@@ -19,6 +22,27 @@ export default class ResourceSync extends Command {
   async run() {
     const {args, flags} = this.parse(ResourceSync);
     const namespace = flags.namespace || api.getCurrentNamespace();
+    const dryRun = flags['dry-run'];
+
+    if (!args.folder) {
+      this.log(`You must provide a folder containing the schemas you want to sync`);
+      this.log(`For example:`);
+      this.log(`    ${chalk.green(`jastore resource:sync ./schemas`)}`);
+      this.log(`The folder must contain files named like this: ${chalk.blue(`<resource-name>.schema.json`)}`);
+      return;
+    }
+
+    printCurrentNamespace(namespace);
+
+    if (!namespace) {
+      this.exit();
+    }
+
+
+    if (dryRun) {
+      this.log(chalk.green(`Performing a dry run`));
+    }
+
     const folderStats = await fs.lstat(args.folder);
     let files: string[] = [];
 
@@ -49,14 +73,22 @@ export default class ResourceSync extends Command {
         }
 
         if (!resource) {
-          await api.createResource(namespace, {
-            name,
-            schema,
-          });
+          if (dryRun) {
+            this.log(`[dry run] resource would be created`)
+          } else {
+            await api.createResource(namespace, {
+              name,
+              schema,
+            });
+          }
         } else {
-          await api.updateResource(namespace, name, {
-            schema,
-          })
+          if (dryRun) {
+            this.log(`[dry run] resource would be updated`);
+          } else {
+            await api.updateResource(namespace, name, {
+              schema,
+            })
+          }
         }
 
         this.log(`Done syncing ${name}`);

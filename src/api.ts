@@ -7,6 +7,7 @@ var FileCookieStore = require("tough-cookie-filestore");
 import * as fs from 'fs-extra';
 import { IConfig } from '@oclif/config';
 import { store } from './storage';
+import chalk = require('chalk');
 
 axiosCookieJarSupport(Axios);
 
@@ -37,6 +38,7 @@ export const reset = async (cliConfig: IConfig) => {
 export const agent = () => apiInstance;
 
 export const api = {
+
   getCurrentNamespace (): string {
     return store.apiCurrentNamespace;
   },
@@ -62,7 +64,7 @@ export const api = {
 
     return namespace;
   },
-
+  
   async listNamespaceResources (namespace: string): Promise<any[]> {
     const key = store.tmpNamespacesKeys?.[namespace];
     const headers = key ? { authorization : key } : {};
@@ -71,14 +73,31 @@ export const api = {
 
     return data;
   },
+  
+  async fetchNamespace (namespace: string): Promise<any> {
+    const key = store.tmpNamespacesKeys?.[namespace];
+    const headers = key ? { authorization : key } : {};
+
+    const { data } = await agent().get(`/namespaces/${namespace}`, { headers });
+
+    return data;
+  },
+  
+  async updateNamespace (namespaceCode: string, namespace: any): Promise<any> {
+    const key = store.tmpNamespacesKeys?.[namespaceCode];
+    const headers = key ? { authorization : key } : {};
+
+    return agent().put(`/namespaces/${namespaceCode}`, namespace, { headers });
+  },
 
   async fetchResource (namespace: string, resource: string): Promise<any> { // TODO why no key, does that work ?
     const key = store.tmpNamespacesKeys?.[namespace];
     const headers = key ? { authorization : key } : {};
 
-    const { data } = await agent().get(`/namespaces/${namespace}/resources/${resource}`, { headers });
+    const response = await agent().get(`/namespaces/${namespace}/resources/${resource}`, { headers });
+    // console.log(response)
 
-    return data;
+    return response.data;
   },
 
   async createResource (namespace?: string, resource?: Record<string, any>, createNamespace?: boolean): Promise<any> {
@@ -87,7 +106,7 @@ export const api = {
 
     if (!namespaceCode) {
       if (!createNamespace) {
-        throw `No namespace selected. Please select a namespace with the "jastore namespace:current <namespace-code>" command.`;
+        throw new Error(`No namespace selected`);
       } else {
         namespaceCode = await this.createNamespace();
       }
@@ -111,5 +130,106 @@ export const api = {
 
     return data;
   },
+
+
+
+  async listNamespaceGroups (namespace: string) {
+    const key = store.tmpNamespacesKeys?.[namespace];
+
+    const headers = key ? { authorization : key } : {};
+    const { data } = await agent().get(`/namespaces/${namespace}/groups`, { headers });
+
+    return data;
+  },
+
+  async createGroup (namespace: string, name: string) {
+    const key = store.tmpNamespacesKeys?.[namespace];
+
+    const headers = key ? { authorization : key } : {};
+    const { data } = await agent().post(
+      `/namespaces/${namespace}/groups`, 
+      { name },
+      { headers }
+    );
+
+    return data;
+  },
+
+  async listGroupsForUser (namespace: string, user: string) {
+    const key = store.tmpNamespacesKeys?.[namespace];
+
+    const headers = key ? { authorization : key } : {};
+    const { data } = await agent().get(
+      `/namespaces/${namespace}/users-groups`, 
+      { headers, params : { user } }
+    );
+
+    return data;
+  },
+
+
+  async addUserToGroup (namespace: string, group: string, user: string) {
+    const key = store.tmpNamespacesKeys?.[namespace];
+
+    const headers = key ? { authorization : key } : {};
+    const { data } = await agent().post(
+      `/namespaces/${namespace}/users-groups`, 
+      { user, group },
+      { headers }
+    );
+
+    return data;
+  },
+
+  async fetchUser (namespace: string, user: string) {
+    const key = store.tmpNamespacesKeys?.[namespace];
+
+    const headers = key ? { authorization : key } : {};
+    const { data } = await agent().get(
+      `/namespaces/${namespace}/users`, 
+      { headers }
+    );
+
+    return data;
+  },
+
+
+
+
+
+  async listAccessControls (namespace: string) {
+    const key = store.tmpNamespacesKeys?.[namespace];
+
+    const headers = key ? { authorization : key } : {};
+    const { data } = await agent().get(`/namespaces/${namespace}/access-controls`, { headers });
+
+    return data;
+  },
+
+  async createAccessControl (namespace: string, resource: string, accessControl: any) {
+    const key = store.tmpNamespacesKeys?.[namespace];
+
+    const headers = key ? { authorization : key } : {};
+    const { data } = await agent().post(
+      `/namespaces/${namespace}/resources/${resource}/access-controls`, 
+      accessControl,
+      { headers }
+    );
+
+    return data;
+  },
+
+  async deleteAccessControl (namespace: string, resource: string, accessControl: string) {
+    const key = store.tmpNamespacesKeys?.[namespace];
+
+    const headers = key ? { authorization : key } : {};
+    const { data } = await agent().delete(
+      `/namespaces/${namespace}/resources/${resource}/access-controls/${accessControl}`, 
+      { headers }
+    );
+
+    return data;
+  },
+
   
 }

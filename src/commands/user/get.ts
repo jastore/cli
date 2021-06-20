@@ -1,0 +1,24 @@
+import {Command, flags} from '@oclif/command';
+import { agent, api } from '../../api';
+import cli from 'cli-ux';
+import * as chalk from 'chalk';
+
+export default class UserGet extends Command {
+  static description = 'Display informations about a user in a namespace'
+
+  static flags = {
+    namespace: flags.string({char: 'n', description: `namespace code, (default to current namespace)`}),
+  }
+
+  static args = [{name: 'user'}]
+
+  async run() {
+    const {args, flags} = this.parse(UserGet)
+    const namespace = flags.namespace || api.getCurrentNamespace();
+    const user: string = args.user || (await cli.prompt(`User email`)) || this.error(`You must provide the user's email`);
+
+    const userInfo = await api.fetchUser(namespace, user);
+
+    console.log(userInfo)
+  }
+}
