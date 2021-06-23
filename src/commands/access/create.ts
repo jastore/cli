@@ -6,7 +6,7 @@ import { printAccessControls } from '../../helpers/access/printAccessControls';
 
 export default class AccessCreate extends Command {
   static description = 
-    `Give a group of user acces to a resource.
+    `Give a group of user access to a resource.
     Before you using this command, you must have configured some user groups for this namespace.
 To list available user groups and create new ones, try this command:
     ${chalk.green(`jastore groups:list`)}
@@ -23,7 +23,7 @@ To list available user groups and create new ones, try this command:
     `# Allow everybody to read access on the "books" resource:
 ${chalk.green(`jastore access:create -r books -g public -a C`)}
 `,
-    `# Allow everybody the group name "admin" all access to the resource named "books"
+    `# Allow everybody the group named "admin" all access (Create, Read, Update, Delete) to the resource named "books"
 ${chalk.green(`jastore access:create -g admin -r books -a CRUD`)}
 `,
   ]
@@ -50,10 +50,15 @@ ${chalk.green(`jastore access:create -g admin -r books -a CRUD`)}
       return this.error(e);
     }
 
-    // try {
-    //   const groups = await api.listNamespaceGroups(namespaceCode);
-
-    // }
+    try {
+      const groups = await api.listNamespaceGroups(namespaceCode);
+      const group = groups.find((g: any) => g.name === flags.group);
+      if (!group) {
+        return this.error(`This group does not exist. To see existing groups, try this command: ${chalk.green(`jastore groups:list`)}`)
+      }
+    } catch (e) {
+      return this.error(e);
+    }
 
     try {
       await api.createAccessControl(namespaceCode, flags.resource, {

@@ -33,9 +33,9 @@ export default class GroupsCreate extends Command {
 
     await api.createGroup(namespace, group);
 
-    this.log(chalk.green(`Group "${group}" created`));
+    this.log(chalk.green(`Group "${group}" created.`));
     this.log(`To add users to this group, try this command:`, chalk.green(`jastore groups:add-user --help`))
-    this.log(`To allow this group to perform some operations on a resource, try the command:`, chalk.green(`jastore access:create --help`))
+    this.log(`To allow this group to perform some operations on a resource, try this command:`, chalk.green(`jastore access:create --help`))
 
 
   }

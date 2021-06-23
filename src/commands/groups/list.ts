@@ -28,7 +28,7 @@ export default class GroupsList extends Command {
       })
     }
 
-    this.log(`To create more user groups, try this command:`, chalk.green(`jastore groups:create`));
+    this.log(`To create more user groups, try this command:`, chalk.green(`jastore groups:create <groupname>`));
   }
 
 }

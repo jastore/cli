@@ -34,7 +34,7 @@ USAGE
 * [`jastore access:list`](#jastore-accesslist)
 * [`jastore groups`](#jastore-groups)
 * [`jastore groups:add-user`](#jastore-groupsadd-user)
-* [`jastore groups:create [GROUP]`](#jastore-groupscreate-group)
+* [`jastore groups:create GROUP`](#jastore-groupscreate-group)
 * [`jastore groups:list`](#jastore-groupslist)
 * [`jastore help [COMMAND]`](#jastore-help-command)
 * [`jastore login [FILE]`](#jastore-login-file)
@@ -44,7 +44,8 @@ USAGE
 * [`jastore namespace:endpoints [FILE]`](#jastore-namespaceendpoints-file)
 * [`jastore namespace:get [FILE]`](#jastore-namespaceget-file)
 * [`jastore namespace:list`](#jastore-namespacelist)
-* [`jastore namespace:set [FILE]`](#jastore-namespaceset-file)
+* [`jastore namespace:set`](#jastore-namespaceset)
+* [`jastore pages [FILE]`](#jastore-pages-file)
 * [`jastore profile [FILE]`](#jastore-profile-file)
 * [`jastore reset [FILE]`](#jastore-reset-file)
 * [`jastore resource`](#jastore-resource)
@@ -72,17 +73,33 @@ _See code: [src/commands/access.ts](https://github.com/projets/jastore-cli/blob/
 
 ## `jastore access:create`
 
-Give a user acces to a resource
+Give a group of user access to a resource.
 
 ```
 USAGE
   $ jastore access:create
 
 OPTIONS
-  -a, --rights=rights        (required) rights to give to the user group of that resource ('CRUD')
+  -a, --allow=allow          (required) rights to give to this user group for that resource. Allowed values: a mix of
+                             the letters C (create), R (read), U (updated), D (delete)
+
   -g, --group=group          (required) user group name
+
   -n, --namespace=namespace  namespace code, (default to current namespace)
+
   -r, --resource=resource    (required) resource name
+
+DESCRIPTION
+  Before you using this command, you must have configured some user groups for this namespace.
+  To list available user groups and create new ones, try this command:
+       jastore groups:list
+
+EXAMPLES
+  # Allow everybody to read access on the "books" resource:
+  jastore access:create -r books -g public -a C
+
+  # Allow everybody the group named "admin" all access (Create, Read, Update, Delete) to the resource named "books"
+  jastore access:create -g admin -r books -a CRUD
 ```
 
 _See code: [src/commands/access/create.ts](https://github.com/projets/jastore-cli/blob/v0.0.0/src/commands/access/create.ts)_
@@ -149,19 +166,22 @@ OPTIONS
 
 _See code: [src/commands/groups/add-user.ts](https://github.com/projets/jastore-cli/blob/v0.0.0/src/commands/groups/add-user.ts)_
 
-## `jastore groups:create [GROUP]`
+## `jastore groups:create GROUP`
 
-Create a user group
+Create an empty user group
 
 ```
 USAGE
-  $ jastore groups:create [GROUP]
+  $ jastore groups:create GROUP
 
 ARGUMENTS
   GROUP  name of the group you want to create
 
 OPTIONS
   -n, --namespace=namespace  namespace code, (default to current namespace)
+
+EXAMPLE
+  jastore groups:create mygroup
 ```
 
 _See code: [src/commands/groups/create.ts](https://github.com/projets/jastore-cli/blob/v0.0.0/src/commands/groups/create.ts)_
@@ -270,7 +290,7 @@ _See code: [src/commands/namespace/endpoints.ts](https://github.com/projets/jast
 
 ## `jastore namespace:get [FILE]`
 
-describe the command here
+Display informations about a namespace
 
 ```
 USAGE
@@ -297,13 +317,35 @@ ALIASES
 
 _See code: [src/commands/namespace/list.ts](https://github.com/projets/jastore-cli/blob/v0.0.0/src/commands/namespace/list.ts)_
 
-## `jastore namespace:set [FILE]`
+## `jastore namespace:set`
+
+Set options of a namespace
+
+```
+USAGE
+  $ jastore namespace:set
+
+OPTIONS
+  -h, --help                 show CLI help
+  -n, --namespace=namespace  namespace code, (default to current namespace)
+  -o, --option=option        set an option for this namespace
+  -t, --name=name            set namespace name (alias)
+
+EXAMPLES
+  $ jastore namespace:set -o key:value
+  $ jastore namespace:set -n newname
+  $ jastore namespace:set -n newname -o key1:value1 -o key2:value2
+```
+
+_See code: [src/commands/namespace/set.ts](https://github.com/projets/jastore-cli/blob/v0.0.0/src/commands/namespace/set.ts)_
+
+## `jastore pages [FILE]`
 
 describe the command here
 
 ```
 USAGE
-  $ jastore namespace:set [FILE]
+  $ jastore pages [FILE]
 
 OPTIONS
   -f, --force
@@ -311,7 +353,7 @@ OPTIONS
   -n, --name=name  name to print
 ```
 
-_See code: [src/commands/namespace/set.ts](https://github.com/projets/jastore-cli/blob/v0.0.0/src/commands/namespace/set.ts)_
+_See code: [src/commands/pages.ts](https://github.com/projets/jastore-cli/blob/v0.0.0/src/commands/pages.ts)_
 
 ## `jastore profile [FILE]`
 
