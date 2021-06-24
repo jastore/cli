@@ -18,6 +18,13 @@ export const reset = async (config: IConfig) => {
 }
 
 export const store = new Proxy({} as any, {
+  deleteProperty: function(target, prop) {
+    localStorage.removeItem(prop as string);
+
+    console.log(localStorage.getItem(prop as string))
+
+    return true;
+  },
   get: function(target, prop, receiver) {
     // console.log('accessing', prop);
     const itemName = _.camelCase(prop as string);

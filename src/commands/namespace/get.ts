@@ -24,7 +24,7 @@ export default class NamespaceGet extends Command {
       const namespace = await api.fetchNamespace(namespaceCode);
       printNamespaceDetails(namespace);
     } catch (e) {
-      if (e?.response?.status === 403 || e?.response?.status) {
+      if (e?.response?.status === 403 || e?.response?.status === 404) {
         return this.error(chalk.red(`This namespace does not exists or you dont have access to it.`));
       }
 

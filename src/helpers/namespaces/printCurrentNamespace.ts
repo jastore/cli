@@ -2,8 +2,8 @@ import chalk = require("chalk");
 import { api } from "../../api";
 
 
-export function printCurrentNamespace (namespace?: string) {
-  const currentNamespace = namespace || api.getCurrentNamespace();
+export function printCurrentNamespace (namespaceCode?: string) {
+  const currentNamespace = namespaceCode || api.getCurrentNamespace();
   if (currentNamespace) {
     console.log(`Current namespace:`, currentNamespace); 
   } else {

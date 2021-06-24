@@ -39,13 +39,14 @@ USAGE
 * [`jastore help [COMMAND]`](#jastore-help-command)
 * [`jastore login [FILE]`](#jastore-login-file)
 * [`jastore namespace`](#jastore-namespace)
+* [`jastore namespace:clean [FILE]`](#jastore-namespaceclean-file)
 * [`jastore namespace:create [FILE]`](#jastore-namespacecreate-file)
 * [`jastore namespace:current [NAMESPACE]`](#jastore-namespacecurrent-namespace)
 * [`jastore namespace:endpoints [FILE]`](#jastore-namespaceendpoints-file)
 * [`jastore namespace:get [FILE]`](#jastore-namespaceget-file)
 * [`jastore namespace:list`](#jastore-namespacelist)
 * [`jastore namespace:set`](#jastore-namespaceset)
-* [`jastore pages [FILE]`](#jastore-pages-file)
+* [`jastore pages`](#jastore-pages)
 * [`jastore profile [FILE]`](#jastore-profile-file)
 * [`jastore reset [FILE]`](#jastore-reset-file)
 * [`jastore resource`](#jastore-resource)
@@ -242,6 +243,22 @@ ALIASES
 
 _See code: [src/commands/namespace.ts](https://github.com/projets/jastore-cli/blob/v0.0.0/src/commands/namespace.ts)_
 
+## `jastore namespace:clean [FILE]`
+
+describe the command here
+
+```
+USAGE
+  $ jastore namespace:clean [FILE]
+
+OPTIONS
+  -f, --force
+  -h, --help       show CLI help
+  -n, --name=name  name to print
+```
+
+_See code: [src/commands/namespace/clean.ts](https://github.com/projets/jastore-cli/blob/v0.0.0/src/commands/namespace/clean.ts)_
+
 ## `jastore namespace:create [FILE]`
 
 Create a new namespace
@@ -339,18 +356,20 @@ EXAMPLES
 
 _See code: [src/commands/namespace/set.ts](https://github.com/projets/jastore-cli/blob/v0.0.0/src/commands/namespace/set.ts)_
 
-## `jastore pages [FILE]`
+## `jastore pages`
 
-describe the command here
+List available auto-generated pages for a namespace
 
 ```
 USAGE
-  $ jastore pages [FILE]
+  $ jastore pages
 
 OPTIONS
-  -f, --force
-  -h, --help       show CLI help
-  -n, --name=name  name to print
+  -h, --help                 show CLI help
+  -n, --namespace=namespace  namespace code, (default to current namespace)
+
+ALIASES
+  $ jastore page
 ```
 
 _See code: [src/commands/pages.ts](https://github.com/projets/jastore-cli/blob/v0.0.0/src/commands/pages.ts)_

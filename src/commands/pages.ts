@@ -4,11 +4,13 @@ import cli from 'cli-ux';
 import * as chalk from 'chalk';
 import { printCurrentNamespace } from '../helpers/namespaces/printCurrentNamespace';
 import config from '../config';
+import { ensureNamespace } from '../helpers/namespaces/ensureNamespace';
 
 
 
 export default class Pages extends Command {
-  static description = 'List available auto-generated pages for a namespace'
+  static description = 'List available auto-generated pages for a namespace';
+  static aliases = ['page'];
 
   static flags = {
     help: flags.help({char: 'h'}),
@@ -18,6 +20,8 @@ export default class Pages extends Command {
   async run() {
     const {args, flags} = this.parse(Pages);
     const namespace = flags.namespace || api.getCurrentNamespace();
+
+    await ensureNamespace(namespace);
 
     printCurrentNamespace();
     this.log(`Available pages:`);

@@ -21,7 +21,8 @@ export default class NamespaceList extends Command {
     const currentNamespace = api.getCurrentNamespace();
     for (const tmpNamespace of tmpNamespaces) {
       const isCurrent = tmpNamespace === currentNamespace;
-      this.log(`- ${tmpNamespace} (temporary)${isCurrent ? ` (current)` : ``}`);
+      const exists = await api.checkNamespaceExists(tmpNamespace);
+      this.log(`- ${tmpNamespace} (temporary)${isCurrent ? ` (current)` : ``}${exists ? '' : chalk.red(` (deleted)`)}`);
     }
     
   }

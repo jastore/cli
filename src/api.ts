@@ -46,6 +46,20 @@ export const api = {
     store.apiCurrentNamespace = namespaceCode;
     console.log(`${store.apiCurrentNamespace} set as the current namespace`);
   },
+  async cleanNamespaceList (force = false) {
+    const current = this.getCurrentNamespace();
+    const tmpNamespacesKeys = store.tmpNamespacesKeys || {};
+    const tmpNamespaces = Object.keys(tmpNamespacesKeys);
+
+    for (const tmpNamespace of tmpNamespaces) {
+      const exists = await this.checkNamespaceExists(tmpNamespace);
+      const isCurrent = tmpNamespace === current;
+      if (!exists && (!isCurrent || force)) {
+        delete tmpNamespacesKeys[tmpNamespace];
+        store.tmpNamespacesKeys = tmpNamespacesKeys;
+      }
+    }
+  },
 
   async isLoggedIn (): Promise<boolean> { 
     return agent().get(`/auth/profile`).then(() => true).catch(() => false)
@@ -81,6 +95,20 @@ export const api = {
     const { data } = await agent().get(`/namespaces/${namespace}`, { headers });
 
     return data;
+  },
+
+  async checkNamespaceExists (namespace: string): Promise<boolean> {
+    try {
+      await this.fetchNamespace(namespace);
+    } catch (e) {
+      if ([404, 403].includes(e?.response?.status)) {
+        return false;
+      }
+
+      throw e;
+    }
+
+    return true;
   },
   
   async updateNamespace (namespaceCode: string, namespace: any): Promise<any> {
