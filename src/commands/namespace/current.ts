@@ -20,7 +20,7 @@ export default class NamespaceCurrent extends Command {
     if (args.namespace) {
       api.setCurrentNamespace(args.namespace);
     } else {
-      printCurrentNamespace();
+      await printCurrentNamespace();
       await ensureNamespace();
       this.log(tips.namespaces.setCurrent);
       this.log(tips.namespaces.listAvailable);

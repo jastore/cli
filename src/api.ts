@@ -97,9 +97,9 @@ export const api = {
     return data;
   },
 
-  async checkNamespaceExists (namespace: string): Promise<boolean> {
+  async checkNamespaceExists (namespace: string): Promise<any> {
     try {
-      await this.fetchNamespace(namespace);
+      return await this.fetchNamespace(namespace);
     } catch (e) {
       if ([404, 403].includes(e?.response?.status)) {
         return false;
@@ -107,8 +107,6 @@ export const api = {
 
       throw e;
     }
-
-    return true;
   },
   
   async updateNamespace (namespaceCode: string, namespace: any): Promise<any> {

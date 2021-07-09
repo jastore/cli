@@ -9,7 +9,7 @@ export default class Resource extends Command {
 
 
   async run() {
-    printCurrentNamespace();
+    await printCurrentNamespace();
     printAvailableResources();
     this.log(`---`)
     this.log(`To check all endpoint for those resources, try this command:`, chalk.green(`jastore endpoints`))

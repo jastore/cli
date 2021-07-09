@@ -1,11 +1,18 @@
 import chalk = require("chalk");
 import { api } from "../../api";
+import * as moment from 'moment';
+import { settings } from "../../settings";
 
 
-export function printCurrentNamespace (namespaceCode?: string) {
+export async function printCurrentNamespace (namespaceCode?: string) {
   const currentNamespace = namespaceCode || api.getCurrentNamespace();
   if (currentNamespace) {
-    console.log(`Current namespace:`, currentNamespace); 
+    const existing = await api.checkNamespaceExists(currentNamespace);
+    if (existing) {
+      const createdAt = moment(existing.createdAt);
+      const expiration = createdAt.clone().add(settings.expiration, settings.expirationUnit);
+    }
+    console.log(`Current namespace:`, currentNamespace, existing ? '' : chalk.red(` (deleted)`)); 
   } else {
     console.log('No current namespace selected.');
     console.log(`To select a namespace, use the following command: `);

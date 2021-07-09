@@ -23,7 +23,7 @@ export default class Pages extends Command {
 
     await ensureNamespace(namespace);
 
-    printCurrentNamespace();
+    await printCurrentNamespace();
     this.log(`Available pages:`);
     this.log(`- https://${namespace}.${config.namespacesDomain}/pages/login`);
     this.log(`- https://${namespace}.${config.namespacesDomain}/pages/signup`);

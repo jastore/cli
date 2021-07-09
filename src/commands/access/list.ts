@@ -18,7 +18,7 @@ export default class AccessList extends Command {
 
     const accessControl = await api.listAccessControls(namespace);
 
-    printCurrentNamespace(namespace);
+    await printCurrentNamespace(namespace);
     printAccessControls(accessControl);
   }
 }

@@ -27,7 +27,7 @@ export default class ResourceSet extends Command {
     const schemaPath = flags.schema;
     // const options = flags.option;
 
-    printCurrentNamespace(namespace);
+    await printCurrentNamespace(namespace);
 
     if (!namespace) {
       this.exit();

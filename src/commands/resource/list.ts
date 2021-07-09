@@ -15,7 +15,7 @@ export default class ResourceList extends Command {
 
   async run() {
     const {args, flags} = this.parse(ResourceList)
-    printCurrentNamespace();
+    await printCurrentNamespace();
     printAvailableResources(flags.namespace);
   }
 }

@@ -32,7 +32,7 @@ export default class ResourceSync extends Command {
       return;
     }
 
-    printCurrentNamespace(namespace);
+    await printCurrentNamespace(namespace);
 
     if (!namespace) {
       this.exit();

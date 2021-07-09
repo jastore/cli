@@ -1,7 +1,7 @@
 {
-  "name": "jastore-cli",
+  "name": "jastore",
   "version": "0.0.0",
-  "author": "Guillaume P",
+  "author": "Jastore",
   "bin": {
     "jastore": "./bin/run"
   },
@@ -17,6 +17,7 @@
     "fs-extra": "^9.1.0",
     "knex": "^0.95.4",
     "lodash": "^4.17.21",
+    "moment": "^2.29.1",
     "node-localstorage": "^2.1.6",
     "sqlite3": "^5.0.2",
     "tough-cookie": "3.0.1",
