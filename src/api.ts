@@ -1,4 +1,4 @@
-import Axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
+import Axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 import config from './config';
 const axiosCookieJarSupport = require('axios-cookiejar-support').default;
 const tough = require('tough-cookie');
@@ -9,39 +9,61 @@ import { IConfig } from '@oclif/config';
 import { store } from './storage';
 import chalk = require('chalk');
 
-axiosCookieJarSupport(Axios);
+// axiosCookieJarSupport(Axios);
 
-let apiInstance: AxiosInstance;
+// let apiInstance: AxiosInstance;
 
 export const init = async (cliConfig: IConfig) => {
   // console.log('ensure dir', cliConfig.dataDir);
   await fs.ensureDir(cliConfig.dataDir);
   // console.log('success');
-  const filePath = path.join(cliConfig.dataDir, 'cookies.json');
-  await fs.ensureFile(filePath);
-  const cookieJar = new tough.CookieJar(new FileCookieStore(filePath));
+  // const filePath = path.join(cliConfig.dataDir, 'cookies.json');
+  // await fs.ensureFile(filePath);
+  // const cookieJar = new tough.CookieJar(new FileCookieStore(filePath));
 
-  apiInstance = Axios.create({
-    baseURL: `https://${config.apiDomain}`,
-    jar: cookieJar,
-    withCredentials: true,
-  } as AxiosRequestConfig);
+  // apiInstance = Axios.create({
+  //   baseURL: `https://${config.apiDomain}`,
+  //   jar: cookieJar,
+  //   withCredentials: true,
+  // } as AxiosRequestConfig);
 }
 
 export const reset = async (cliConfig: IConfig) => {
-  const filePath = path.join(cliConfig.dataDir, 'cookies.json');
-  await fs.remove(filePath);
+  // const filePath = path.join(cliConfig.dataDir, 'cookies.json');
+  // await fs.remove(filePath);
   await init(cliConfig);
 }
 
 
-export const agent = () => apiInstance;
+export const agent = () => {
+  return Axios.create({
+    baseURL: `https://${config.apiDomain}`,
+    headers: { Authorization : store.apiToken ?`Bearer ${store.apiToken}` : null },
+  } as AxiosRequestConfig);
+};
 
 export const api = {
 
-  getCurrentNamespace (): string {
-    return store.apiCurrentNamespace;
+  async login (email: string, password: string): Promise<AxiosResponse> {
+    const response = await agent().post(`/auth/login`, { email, password });
+    const token = response.headers.token;
+    store.apiToken = token;
+
+    return response;
   },
+
+  getCurrentNamespace (): string {
+    const currentNamespaceCode = store.apiCurrentNamespace;
+
+    if (!currentNamespaceCode) {
+      const message = `Current namespace not defined, use the --namespace option
+ or set the current namespace using the following command : ${chalk.green(`jastore namespace:current <namespace_code>`)}`
+      throw new Error(message); 
+    }
+
+    return currentNamespaceCode;
+  },
+
   setCurrentNamespace (namespaceCode: string) {
     store.apiCurrentNamespace = namespaceCode;
     console.log(`${store.apiCurrentNamespace} set as the current namespace`);
@@ -69,6 +91,12 @@ export const api = {
     const { data : profile } = await agent().get(`/auth/profile`);
 
     return profile;
+  },
+  
+  async listNamespaces (): Promise<any[]> {
+    const { data : namespaces }  = await agent().get('/namespaces');
+
+    return namespaces;
   },
   
   async createNamespace (): Promise<string> {

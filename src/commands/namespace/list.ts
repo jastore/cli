@@ -3,26 +3,40 @@ import { agent, api } from '../../api';
 import cli from 'cli-ux'
 import { store } from '../../storage';
 import chalk = require('chalk');
+import * as _ from 'lodash';
 
 export default class NamespaceList extends Command {
   static description = 'List the namespaces you have access to.'
   static aliases = ['namespaces:list', 'namespaces']
 
   async run() {
-    const tmpNamespaces = Object.keys(store.tmpNamespacesKeys || {});
+    const localNamespacesCodes = Object.keys(store.tmpNamespacesKeys || {});
+    let remoteNamespaces = [];
 
+    try {
+      remoteNamespaces = await api.listNamespaces();
+    } catch (e) {
+      this.log(`You are not connected, we will only list temporary namespaces stored locally.`)
+    }
+     let currentNamespace = null;
 
-    if (tmpNamespaces.length === 0) {
+    try {
+      currentNamespace = api.getCurrentNamespace();
+    } catch (e) {}
+
+    const remoteNamespacesCodes = remoteNamespaces.map(n => n.code);
+    const namespaces = _.merge(localNamespacesCodes, remoteNamespacesCodes);
+
+    if (localNamespacesCodes.length === 0) {
       this.log('No accessible namespaces');
       this.log(`To create a new namespace, use the following command:`);
       this.log(chalk.green(`    jastore namespace:create`));
-    } 
+    }
 
-    const currentNamespace = api.getCurrentNamespace();
-    for (const tmpNamespace of tmpNamespaces) {
-      const isCurrent = tmpNamespace === currentNamespace;
-      const exists = await api.checkNamespaceExists(tmpNamespace);
-      this.log(`- ${tmpNamespace} (temporary)${isCurrent ? ` (current)` : ``}${exists ? '' : chalk.red(` (deleted)`)}`);
+    for (const namespace of namespaces) {
+      const isCurrent = namespace === currentNamespace;
+      const exists = await api.checkNamespaceExists(namespace);
+      this.log(`- ${namespace} ${isCurrent ? ` (current)` : ``}${exists ? '' : chalk.red(` (deleted)`)}`);
     }
     
   }

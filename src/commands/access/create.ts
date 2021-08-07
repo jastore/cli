@@ -32,6 +32,8 @@ ${chalk.green(`jastore access:create -g admin -r books -a CRUD`)}
     const {args, flags} = this.parse(AccessCreate)
     const namespaceCode = flags.namespace || api.getCurrentNamespace();
 
+    console.log('namespace code', namespaceCode);
+
     try {
       const namespace = await api.fetchNamespace(namespaceCode);
     } catch (e) {

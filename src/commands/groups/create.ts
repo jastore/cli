@@ -4,7 +4,9 @@ import cli from 'cli-ux';
 import * as chalk from 'chalk';
 
 export default class GroupsCreate extends Command {
-  static description = 'Create an empty user group'
+  static description = 'Create an empty user group';
+  static aliases = ['group:create'];
+
 
   static flags = {
     namespace: flags.string({char: 'n', description: `namespace code, (default to current namespace)`}),
