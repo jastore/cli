@@ -181,6 +181,9 @@ ARGUMENTS
 OPTIONS
   -n, --namespace=namespace  namespace code, (default to current namespace)
 
+ALIASES
+  $ jastore group:create
+
 EXAMPLE
   jastore groups:create mygroup
 ```
@@ -225,6 +228,12 @@ Log in to manage the namespaces and resources associated to your user.
 ```
 USAGE
   $ jastore login [FILE]
+
+OPTIONS
+  -e, --email=email        alias for --user
+  -h, --help               show CLI help
+  -p, --password=password  Password (if empty, we will prompt you for it)
+  -u, --user=user          Username (email)
 ```
 
 _See code: [src/commands/login.ts](https://github.com/projets/jastore-cli/blob/v0.0.2/src/commands/login.ts)_

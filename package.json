@@ -1,6 +1,6 @@
 {
   "name": "jastore",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "author": "Jastore",
   "bin": {
     "jastore": "./bin/run"
