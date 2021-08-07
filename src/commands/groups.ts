@@ -8,6 +8,7 @@ export default class Groups extends Command {
   static aliases = ['group'];
 
   async run() {
-    this.log(`Manage user groups. For a list of all available commands, type:  ${chalk.green(`jastore help groups`)}`);
+    this.log(`Manage user groups. For a list of all available commands, try this command:  ${chalk.green(`jastore help groups`)}`);
+    this.log(`To list available user groups in this namespace, try this command:  ${chalk.green(`jastore groups:list`)}`);
   }
 }

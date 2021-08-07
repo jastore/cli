@@ -10,8 +10,10 @@ export default class Namespace extends Command {
 
   async run() {
     await printCurrentNamespace();
-    await ensureNamespace();
-    this.log(`To see more details about this namespace, try this command:`, chalk.green(`jastore namespace:get`));
-    this.log(`To list available namespaces, try this command:`, chalk.green(`jastore namespaces:list`));
+    try {
+      await ensureNamespace();
+      this.log(`To see more details about this namespace, try this command:`, chalk.green(`jastore namespace:get`));
+      this.log(`To list available namespaces, try this command:`, chalk.green(`jastore namespaces:list`));
+    } catch (e) {}
   }
 }

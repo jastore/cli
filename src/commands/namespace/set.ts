@@ -35,8 +35,8 @@ export default class NamespaceSet extends Command {
     if (options?.length > 0) {
       if (!namespace.options) { namespace.options = {}; }
       options.forEach((opt: string) => {
-        const [key, value] = opt.split(`:`);
-        _.set(namespace.options, key, value);
+        const [key, ...values] = opt.split(`:`);
+        _.set(namespace.options, key, values.join(':'));
       })
     }
 

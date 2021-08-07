@@ -1,4 +1,4 @@
 export default {
-  apiDomain: 'jastore.pw',
+  apiDomain: 'api.jastore.pw',
   namespacesDomain: 'jastore.space'
 }
