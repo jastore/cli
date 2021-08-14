@@ -58,8 +58,11 @@ USAGE
 * [`jastore signup [FILE]`](#jastore-signup-file)
 * [`jastore status [FILE]`](#jastore-status-file)
 * [`jastore user`](#jastore-user)
+* [`jastore user:create EMAIL`](#jastore-usercreate-email)
+* [`jastore user:delete EMAIL`](#jastore-userdelete-email)
 * [`jastore user:get [USER]`](#jastore-userget-user)
 * [`jastore user:groups [USER]`](#jastore-usergroups-user)
+* [`jastore user:list [FILE]`](#jastore-userlist-file)
 
 ## `jastore access`
 
@@ -541,6 +544,49 @@ USAGE
 
 _See code: [src/commands/user.ts](https://github.com/projets/jastore-cli/blob/v0.0.3/src/commands/user.ts)_
 
+## `jastore user:create EMAIL`
+
+Create a new user in a namespace
+
+```
+USAGE
+  $ jastore user:create EMAIL
+
+OPTIONS
+  -h, --help                 show CLI help
+  -n, --namespace=namespace  namespace code, (default to current namespace)
+  -p, --password=password    (required) password
+
+ALIASES
+  $ jastore users:create
+
+EXAMPLE
+  npx jastore user:create user@email.com --password userpassword
+```
+
+_See code: [src/commands/user/create.ts](https://github.com/projets/jastore-cli/blob/v0.0.3/src/commands/user/create.ts)_
+
+## `jastore user:delete EMAIL`
+
+delete a new user from a namespace
+
+```
+USAGE
+  $ jastore user:delete EMAIL
+
+OPTIONS
+  -h, --help                 show CLI help
+  -n, --namespace=namespace  namespace code, (default to current namespace)
+
+ALIASES
+  $ jastore users:create
+
+EXAMPLE
+  npx jastore user:delete user@email.com
+```
+
+_See code: [src/commands/user/delete.ts](https://github.com/projets/jastore-cli/blob/v0.0.3/src/commands/user/delete.ts)_
+
 ## `jastore user:get [USER]`
 
 Display informations about a user in a namespace
@@ -568,4 +614,20 @@ OPTIONS
 ```
 
 _See code: [src/commands/user/groups.ts](https://github.com/projets/jastore-cli/blob/v0.0.3/src/commands/user/groups.ts)_
+
+## `jastore user:list [FILE]`
+
+describe the command here
+
+```
+USAGE
+  $ jastore user:list [FILE]
+
+OPTIONS
+  -f, --force
+  -h, --help       show CLI help
+  -n, --name=name  name to print
+```
+
+_See code: [src/commands/user/list.ts](https://github.com/projets/jastore-cli/blob/v0.0.3/src/commands/user/list.ts)_
 <!-- commandsstop -->

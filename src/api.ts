@@ -9,6 +9,12 @@ import { IConfig } from '@oclif/config';
 import { store } from './storage';
 import chalk = require('chalk');
 
+interface IAPIPagination {
+  offset?: number;
+  limit?: number;
+  sort?: string;
+}
+
 // axiosCookieJarSupport(Axios);
 
 // let apiInstance: AxiosInstance;
@@ -68,6 +74,7 @@ export const api = {
     store.apiCurrentNamespace = namespaceCode;
     console.log(`${store.apiCurrentNamespace} set as the current namespace`);
   },
+
   async cleanNamespaceList (force = false) {
     const current = this.getCurrentNamespace();
     const tmpNamespacesKeys = store.tmpNamespacesKeys || {};
@@ -240,7 +247,56 @@ export const api = {
 
     const headers = key ? { authorization : key } : {};
     const { data } = await agent().get(
+      `/namespaces/${namespace}/users/${user}`, 
+      { headers }
+    );
+
+    return data;
+  },
+
+  async fetchUsers (namespace: string, pagination: IAPIPagination) {
+    const key = store.tmpNamespacesKeys?.[namespace];
+
+    const headers = key ? { authorization : key } : {};
+    const { data } = await agent().get(
       `/namespaces/${namespace}/users`, 
+      { headers, params: { ...pagination } },
+    );
+
+    return data;
+  },
+
+  async countUsers (namespace: string) {
+    const key = store.tmpNamespacesKeys?.[namespace];
+
+    const headers = key ? { authorization : key } : {};
+    const { data } = await agent().get(
+      `/namespaces/${namespace}/users/count`, 
+      { headers },
+    );
+
+    return data;
+  },
+
+  async deleteUser (namespace: string, user: string) {
+    const key = store.tmpNamespacesKeys?.[namespace];
+
+    const headers = key ? { authorization : key } : {};
+    const { data } = await agent().delete(
+      `/namespaces/${namespace}/users/${user}`, 
+      { headers }
+    );
+
+    return data;
+  },
+
+  async createUser (namespace: string, email: string, password: string) {
+    const key = store.tmpNamespacesKeys?.[namespace];
+
+    const headers = key ? { authorization : key } : {};
+    const { data } = await agent().post(
+      `/namespaces/${namespace}/users`, 
+      { email, password },
       { headers }
     );
 
@@ -248,7 +304,7 @@ export const api = {
   },
 
 
-
+  
 
 
   async listAccessControls (namespace: string) {
