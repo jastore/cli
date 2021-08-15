@@ -1,6 +1,7 @@
 import {Command, flags} from '@oclif/command'
 import { api } from '../../api';
 import { ensureNamespace } from '../../helpers/namespaces/ensureNamespace';
+import { printCurrentNamespace } from '../../helpers/namespaces/printCurrentNamespace';
 
 export default class UserList extends Command {
   static aliases = ['users:list'];
@@ -30,6 +31,7 @@ export default class UserList extends Command {
     const users = await api.fetchUsers(namespace, { limit, offset, sort });
     const { count } = await api.countUsers(namespace);
 
+    await printCurrentNamespace(namespace);
     this.log(`${users.length}/${count} users retrieved:`)
 
     users.forEach((user: any, i: number) => {
