@@ -3,6 +3,8 @@ import { agent, api } from '../../api';
 import cli from 'cli-ux';
 import chalk = require('chalk');
 import { printAccessControls } from '../../helpers/access/printAccessControls';
+import { printCurrentNamespace } from '../../helpers/namespaces/printCurrentNamespace';
+import { ensureNamespace } from '../../helpers/namespaces/ensureNamespace';
 
 export default class AccessCreate extends Command {
   static description = 
@@ -17,6 +19,7 @@ To list available user groups and create new ones, try this command:
     resource: flags.string({char: 'r', description: `resource name`, required: true }),
     group: flags.string({char: 'g', description: `user group name`, required: true }),
     allow: flags.string({char: 'a', description: `rights to give to this user group for that resource. Allowed values: a mix of the letters C (create), R (read), U (updated), D (delete)`, required: true }),
+    restrictions: flags.string({ char: 'R', description: 'restriction to apply on the resource for that group (this options can be repeated - restrictions are additive)', multiple: true })
   }
 
   static examples = [
@@ -32,16 +35,17 @@ ${chalk.green(`jastore access:create -g admin -r books -a CRUD`)}
     const {args, flags} = this.parse(AccessCreate)
     const namespaceCode = flags.namespace || api.getCurrentNamespace();
 
-    console.log('namespace code', namespaceCode);
+    await printCurrentNamespace(namespaceCode);
+    await ensureNamespace(namespaceCode);
 
-    try {
-      const namespace = await api.fetchNamespace(namespaceCode);
-    } catch (e) {
-      if ([404, 401].includes(e?.response?.status)) {
-        return this.error(`This namespace does not exist or you dont have access to it.`);
-      }
-      return this.error(e);
-    }
+    // try {
+    //   const namespace = await api.fetchNamespace(namespaceCode);
+    // } catch (e) {
+    //   if ([404, 401].includes(e?.response?.status)) {
+    //     return this.error(`This namespace does not exist or you dont have access to it.`);
+    //   }
+    //   return this.error(e);
+    // }
 
     try {
       const resource = await api.fetchResource(namespaceCode, flags.resource);
@@ -62,10 +66,13 @@ ${chalk.green(`jastore access:create -g admin -r books -a CRUD`)}
       return this.error(e);
     }
 
+    const restrictions = flags.restrictions;
+
     try {
       await api.createAccessControl(namespaceCode, flags.resource, {
         group: flags.group,
         rights: flags.allow,
+        restrictions,
       });
     } catch (e) {
       if (e?.response?.status === 409) {

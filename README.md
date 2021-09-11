@@ -53,6 +53,7 @@ USAGE
 * [`jastore resource:create [RESOURCENAME]`](#jastore-resourcecreate-resourcename)
 * [`jastore resource:get RESOURCE`](#jastore-resourceget-resource)
 * [`jastore resource:list`](#jastore-resourcelist)
+* [`jastore resource:schema [FILE]`](#jastore-resourceschema-file)
 * [`jastore resource:set RESOURCE`](#jastore-resourceset-resource)
 * [`jastore resource:sync [FOLDER]`](#jastore-resourcesync-folder)
 * [`jastore signup [FILE]`](#jastore-signup-file)
@@ -84,14 +85,17 @@ USAGE
   $ jastore access:create
 
 OPTIONS
-  -a, --allow=allow          (required) rights to give to this user group for that resource. Allowed values: a mix of
-                             the letters C (create), R (read), U (updated), D (delete)
+  -R, --restrictions=restrictions  restriction to apply on the resource for that group (this options can be repeated -
+                                   restrictions are additive)
 
-  -g, --group=group          (required) user group name
+  -a, --allow=allow                (required) rights to give to this user group for that resource. Allowed values: a mix
+                                   of the letters C (create), R (read), U (updated), D (delete)
 
-  -n, --namespace=namespace  namespace code, (default to current namespace)
+  -g, --group=group                (required) user group name
 
-  -r, --resource=resource    (required) resource name
+  -n, --namespace=namespace        namespace code, (default to current namespace)
+
+  -r, --resource=resource          (required) resource name
 
 DESCRIPTION
   Before you using this command, you must have configured some user groups for this namespace.
@@ -121,7 +125,6 @@ ARGUMENTS
 
 OPTIONS
   -n, --namespace=namespace  namespace code, (default to current namespace)
-  -r, --resource=resource    (required) resource name
 ```
 
 _See code: [src/commands/access/delete.ts](https://github.com/projets/jastore-cli/blob/v0.0.4/src/commands/access/delete.ts)_
@@ -471,6 +474,22 @@ ALIASES
 ```
 
 _See code: [src/commands/resource/list.ts](https://github.com/projets/jastore-cli/blob/v0.0.4/src/commands/resource/list.ts)_
+
+## `jastore resource:schema [FILE]`
+
+describe the command here
+
+```
+USAGE
+  $ jastore resource:schema [FILE]
+
+OPTIONS
+  -f, --force
+  -h, --help       show CLI help
+  -n, --name=name  name to print
+```
+
+_See code: [src/commands/resource/schema.ts](https://github.com/projets/jastore-cli/blob/v0.0.4/src/commands/resource/schema.ts)_
 
 ## `jastore resource:set RESOURCE`
 

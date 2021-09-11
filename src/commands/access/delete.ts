@@ -7,7 +7,6 @@ export default class AccessDelete extends Command {
 
   static flags = {
     namespace: flags.string({char: 'n', description: `namespace code, (default to current namespace)`}),
-    resource: flags.string({char: 'r', description: `resource name`, required: true }),
   }
 
   static args = [{name: 'access', required: true, description: 'uuid of the access-control record to delete'}]
@@ -17,7 +16,7 @@ export default class AccessDelete extends Command {
     const {args, flags} = this.parse(AccessDelete)
     const namespace = flags.namespace || api.getCurrentNamespace();
 
-    await api.deleteAccessControl(namespace, flags.resource, args.access)
+    await api.deleteAccessControl(namespace, args.access)
 
     this.log(`Access-control record deleted`);
 

@@ -20,7 +20,11 @@ export function printAccessControls (accessControls: any[]) {
       const group = chalk.green(ac.group);
       const rights = chalk.green(ac.rights.split('').map((x: string) => labels[x]).join(','))
       const resource = chalk.green(ac.resource);
+      const restrictions = ac.restrictions && ac.restrictions.length > 0 ? `    --> restrictions: ${ac.restrictions.join(', ')}` : null;
       console.log(`- Group ${group} can ${rights} on resource ${resource} [access-control uuid: ${ac.uuid}]`)
+      if (restrictions) {
+        console.log(restrictions);
+      }
     })
   }
 }

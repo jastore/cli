@@ -329,12 +329,12 @@ export const api = {
     return data;
   },
 
-  async deleteAccessControl (namespace: string, resource: string, accessControl: string) {
+  async deleteAccessControl (namespace: string, accessControl: string) {
     const key = store.tmpNamespacesKeys?.[namespace];
 
     const headers = key ? { authorization : key } : {};
     const { data } = await agent().delete(
-      `/namespaces/${namespace}/resources/${resource}/access-controls/${accessControl}`, 
+      `/namespaces/${namespace}/access-controls/${accessControl}`,
       { headers }
     );
 

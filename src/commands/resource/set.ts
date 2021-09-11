@@ -13,8 +13,7 @@ export default class ResourceSet extends Command {
 
   static flags = {
     namespace: flags.string({char: 'n', description: `namespace code, (default to current namespace)`}),
-    schema: flags.string({char: 's', description: `path of the json schema file to use as the json schema for that resource`}),
-    // option: flags.string({ char: 'o', multiple: true })
+    schema: flags.string({char: 's', description: `json chema or path of the json schema file to use as the json schema for that resource`}),
   }
 
   static args = [{name: 'resource', required : true }]
@@ -25,7 +24,9 @@ export default class ResourceSet extends Command {
     const namespace = flags.namespace || api.getCurrentNamespace();
     const resourceName = args.resource;
     const schemaPath = flags.schema;
-    // const options = flags.option;
+    let schema = null;
+
+    
 
     await printCurrentNamespace(namespace);
 
@@ -40,18 +41,16 @@ export default class ResourceSet extends Command {
     }
 
     if (schemaPath) {
-      const schema = await fs.readJSON(schemaPath);
+      try {
+        schema = JSON.parse(schemaPath);
+      } catch (e) {
 
+      }
+      if (!schema) {
+        schema = await fs.readJSON(schemaPath);
+      }
       resource.schema = schema;
     }
-
-    // if (options?.length > 0) {
-    //   if (!resource.options) { resource.options = {}; }
-    //   options.forEach((opt: string) => {
-    //     const [key, value] = opt.split(`:`);
-    //     _.set(resource.options, key, value);
-    //   })
-    // }
 
     await api.updateResource(namespace, resourceName, resource);
 
