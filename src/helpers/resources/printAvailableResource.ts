@@ -1,5 +1,6 @@
 import chalk = require("chalk");
 import { api } from "../../api";
+import { hint } from "../hint";
 
 
 export async function printAvailableResources (namespace?: string | undefined) {
@@ -7,9 +8,10 @@ export async function printAvailableResources (namespace?: string | undefined) {
   const list = await api.listNamespaceResources(namespaceCode);
 
   if (!list || list.length === 0) {
-    console.log(`No resource in this namespace. Use the "resource:create" command to create one.`);
-    console.log(`Example to create a resource named "book":`);
-    console.log(`    ${chalk.green(`jastore resource:create --schema ./book.schema.json book`)}`);
+    console.error(`No resource in this namespace.`);
+    hint(`Use the "resource:create" command to create a resource.`)
+    hint(`Example to create a resource named "book":`);
+    hint(`    ${chalk.green(`jastore resource:create --schema ./book.schema.json book`)}`);
   } else {
     console.log(`Available resources:`);
     for (const resource of list) {

@@ -16,14 +16,14 @@ export default class NamespaceCreate extends Command {
     // force: flags.boolean({char: 'f'}),
   }
 
-  static args = [{name: 'file'}]
+  static args = [{name: 'alias'}]
 
   async run() {
     const {args, flags} = this.parse(NamespaceCreate)
     const isLoggedIn = await api.isLoggedIn();
 
     try {
-      const namespaceCode = await api.createNamespace();
+      const namespaceCode = await api.createNamespace(args.name);
       this.log('Namespace created !');
       this.log('Namespace code:', namespaceCode);
       if (!isLoggedIn) {
@@ -31,7 +31,7 @@ export default class NamespaceCreate extends Command {
         this.log(`Log in to claim this namespace and associate it to your account.`)
       }
       api.setCurrentNamespace(namespaceCode);
-    } catch (e) {
+    } catch (e: any) {
       this.error(e);
     }
   }

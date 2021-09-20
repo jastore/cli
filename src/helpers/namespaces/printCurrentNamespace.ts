@@ -12,7 +12,9 @@ export async function printCurrentNamespace (namespaceCode?: string) {
       const createdAt = moment(existing.createdAt);
       const expiration = createdAt.clone().add(settings.expiration, settings.expirationUnit);
     }
-    console.log(`Current namespace:`, currentNamespace, existing ? '' : chalk.red(` (deleted)`)); 
+    const alias = existing?.name ? `(alias: ${existing.name})` : ``;
+    const deleted = existing ? '' : chalk.red(` (deleted)`);
+    console.log(chalk.green(`Current namespace:`), currentNamespace, alias, deleted); 
   } else {
     console.log('No current namespace selected.');
     console.log(`To select a namespace, use the following command: `);

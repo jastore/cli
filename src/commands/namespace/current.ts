@@ -1,13 +1,14 @@
 import {Command, flags} from '@oclif/command'
 import chalk = require('chalk');
 import { api } from '../../api';
+import { hint } from '../../helpers/hint';
 import { ensureNamespace } from '../../helpers/namespaces/ensureNamespace';
 import { printCurrentNamespace } from '../../helpers/namespaces/printCurrentNamespace';
 import { tips } from '../../tips';
 
 export default class NamespaceCurrent extends Command {
   static description = 'Set current namespace'
-  static aliases = ['namespaces:current']
+  static aliases = ['namespaces:current', 'current', 'use', 'namespace:use']
 
 
   static flags = {}
@@ -22,8 +23,8 @@ export default class NamespaceCurrent extends Command {
     } else {
       await printCurrentNamespace();
       await ensureNamespace();
-      this.log(tips.namespaces.setCurrent);
-      this.log(tips.namespaces.listAvailable);
+      hint(tips.namespaces.setCurrent);
+      hint(tips.namespaces.listAvailable);
     }
   }
 }

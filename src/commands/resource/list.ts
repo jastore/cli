@@ -3,9 +3,11 @@ import { agent, api } from '../../api';
 import cli from 'cli-ux';
 import { printAvailableResources } from '../../helpers/resources/printAvailableResource';
 import { printCurrentNamespace } from '../../helpers/namespaces/printCurrentNamespace';
+import _ = require('lodash');
+import { ensureNamespace } from '../../helpers/namespaces/ensureNamespace';
 
 export default class ResourceList extends Command {
-  static description = 'list all resources in a namespace';
+  static description = 'List all resources in a namespace';
   static aliases = ['resources:list', 'resources', 'resource'];
 
 
@@ -13,9 +15,14 @@ export default class ResourceList extends Command {
     namespace: flags.string({char: 'n', description: `namespace code, (default to current namespace)`}),
   }
 
+  static args = [{name: 'namespace', description: `namespace code, (default to current namespace)`}]
+
+
   async run() {
     const {args, flags} = this.parse(ResourceList)
-    await printCurrentNamespace();
-    printAvailableResources(flags.namespace);
+    const namespaceCode = flags.namespace || args.namespace || api.getCurrentNamespace();
+    await ensureNamespace(namespaceCode);
+    await printCurrentNamespace(namespaceCode);
+    printAvailableResources(namespaceCode);
   }
 }

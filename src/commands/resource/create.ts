@@ -8,7 +8,6 @@ export default class ResourceCreate extends Command {
   static description = 'create a resource in a namespace';
 
   static flags = {
-    // help: flags.help({char: 'h'}),
     // flag with a value (-n, --name=VALUE)
     // name: flags.string({char: 'n', description: 'name of the resource'}),
     // flag with no value (-f, --force)

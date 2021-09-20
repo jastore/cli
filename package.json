@@ -65,6 +65,9 @@
     ],
     "hooks": {
       "init": "./lib/hooks/init/initstorage"
+    },
+    "topics": {
+      "resource": { "description": "Manage resources" }
     }
   },
   "repository": "projets/jastore-cli",

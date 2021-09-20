@@ -106,8 +106,8 @@ export const api = {
     return namespaces;
   },
   
-  async createNamespace (): Promise<string> {
-    const response  = await agent().post('/namespaces', {});
+  async createNamespace (name?: string): Promise<string> {
+    const response  = await agent().post('/namespaces', { name });
     const { key, namespace } = response.data;
     store.tmpNamespacesKeys = { ...store.tmpNamespacesKeys, [namespace] : key };
 
