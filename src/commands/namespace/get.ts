@@ -9,6 +9,8 @@ import { printCurrentNamespace } from '../../helpers/namespaces/printCurrentName
 
 export default class NamespaceGet extends Command {
   static description = 'Display details about a namespace'
+  static aliases = ['namespaces:get', 'ns:get']
+
 
   static flags = {
     namespace: flags.string({char: 'n', description: `namespace code, (default to current namespace)`}),

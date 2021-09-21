@@ -13,6 +13,7 @@ export default class ResourceSync extends Command {
 
 
   static flags = {
+    help: flags.help({char: 'h'}),
     namespace: flags.string({char: 'n', description: `namespace code, (default to current namespace)`}),
     'dry-run' : flags.boolean({ description : `output the operation that are going to be performed, without actualy performing them` }),
   }
@@ -63,7 +64,7 @@ export default class ResourceSync extends Command {
 
         try {
           resource = await api.fetchResource(namespace, name);
-        } catch (e) {
+        } catch (e: any) {
           if (e.response?.status === 404) {
             this.log(`Resource does not exists and will be created`);
           } else {

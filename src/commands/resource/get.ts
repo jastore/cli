@@ -9,6 +9,7 @@ export default class ResourceGet extends Command {
 
   static flags = {
     namespace: flags.string({char: 'n', description: `namespace code, (default to current namespace)`}),
+    help: flags.help({char: 'h'}),
   }
 
   static args = [{name: 'resource', required : true }]

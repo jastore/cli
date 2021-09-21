@@ -72,7 +72,7 @@ export const api = {
 
   setCurrentNamespace (namespaceCode: string) {
     store.apiCurrentNamespace = namespaceCode;
-    console.log(`${store.apiCurrentNamespace} set as the current namespace`);
+    console.log(chalk.green(`${store.apiCurrentNamespace} set as the current namespace`));
   },
 
   async cleanNamespaceList (force = false) {

@@ -8,8 +8,7 @@ import { tips } from '../../tips';
 
 export default class NamespaceCurrent extends Command {
   static description = 'Set current namespace'
-  static aliases = ['namespaces:current', 'current', 'use', 'namespace:use']
-
+  static aliases = ['namespaces:current', 'namespace:current', 'current', 'use', 'namespace:use', 'namespace', 'ns', 'ns:current', 'ns:use']
 
   static flags = {}
 

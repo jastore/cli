@@ -5,14 +5,18 @@ import * as fs from 'fs-extra';
 import chalk = require('chalk');
 
 export default class ResourceCreate extends Command {
-  static description = 'create a resource in a namespace';
+  static description = 'Create a resource in a namespace';
+  static aliases = ['resources:create', 'rs:create']
+
 
   static flags = {
     // flag with a value (-n, --name=VALUE)
     // name: flags.string({char: 'n', description: 'name of the resource'}),
     // flag with no value (-f, --force)
+    help: flags.help({char: 'h'}),
     namespace: flags.string({char: 'n', description: `namespace code, (default to current namespace)`}),
-    schema: flags.string({ char : 's', description: 'path to json schema file' })
+    schema: flags.string({ char : 's', description: 'inline json or path to json schema file' }),
+    yes: flags.boolean({ char : 'y', description: 'do not prompt for confirmation before creating the resource' })
   }
 
   static args = [{name: 'resourceName'}]
@@ -23,7 +27,14 @@ export default class ResourceCreate extends Command {
 
     let schema = null as any;
     if (flags.schema) {
-      schema = await fs.readJSON(flags.schema);
+      try {
+        const parsed = JSON.parse(flags.schema);
+        if (typeof parsed === 'object') { schema = parsed }
+      } catch (e) {}
+      
+      if (!schema) {
+        schema = await fs.readJSON(flags.schema);
+      }
     }
 
     let resourceName = args.resourceName;
@@ -57,7 +68,9 @@ export default class ResourceCreate extends Command {
     this.log(`Namespace: `, namespace || chalk.yellow(`Not provided`));
     this.log(`JSON Schema: `, schema);
     
-    await cli.anykey(`Press any key to continue...`);
+    if (!flags.yes) {
+      await cli.anykey(`A resource will be created, continue ?`);
+    }
 
     this.log('Creating resource...');
     try {
@@ -68,7 +81,7 @@ export default class ResourceCreate extends Command {
       });
 
       this.log(`Resource created.`)
-    } catch (e) {
+    } catch (e: any) {
       if (e.response?.data) {
         this.error(e.response.data);
       } else {

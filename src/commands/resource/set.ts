@@ -12,6 +12,7 @@ export default class ResourceSet extends Command {
   static description = 'modify a resource'
 
   static flags = {
+    help: flags.help({char: 'h'}),
     namespace: flags.string({char: 'n', description: `namespace code, (default to current namespace)`}),
     schema: flags.string({char: 's', description: `json chema or path of the json schema file to use as the json schema for that resource`}),
   }

@@ -1,9 +1,12 @@
 import {Command, flags} from '@oclif/command'
+import chalk = require('chalk');
 import { api } from '../../api';
 import { printAvailableNamespaces } from '../../helpers/namespaces/printAvalableNamespaces';
 
 export default class NamespaceClean extends Command {
-  static description = 'Clean available namespace list'
+  static description = 'Clean available namespace list';
+  static aliases = ['namespaces:clean', 'clean']
+
 
   static flags = {
     help: flags.help({char: 'h'}),
@@ -17,8 +20,8 @@ export default class NamespaceClean extends Command {
     const force = flags.force;
 
     await api.cleanNamespaceList(force);
-    this.log(`Namespace list cleaned`);
-    this.log('Available Namespaces: ')
+    this.log(chalk.green(`Namespace list cleaned.`));
+    this.log(chalk.green('Available Namespaces: '))
     await printAvailableNamespaces();
   }
 }

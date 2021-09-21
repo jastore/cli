@@ -8,11 +8,12 @@ import { ensureNamespace } from '../../helpers/namespaces/ensureNamespace';
 
 export default class ResourceList extends Command {
   static description = 'List all resources in a namespace';
-  static aliases = ['resources:list', 'resources', 'resource'];
+  static aliases = ['resources:list', 'resources', 'resource', 'rs', 'rs:list'];
 
 
   static flags = {
     namespace: flags.string({char: 'n', description: `namespace code, (default to current namespace)`}),
+    help: flags.help({char: 'h'}),
   }
 
   static args = [{name: 'namespace', description: `namespace code, (default to current namespace)`}]

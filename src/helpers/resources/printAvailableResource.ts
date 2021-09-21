@@ -13,7 +13,7 @@ export async function printAvailableResources (namespace?: string | undefined) {
     hint(`Example to create a resource named "book":`);
     hint(`    ${chalk.green(`jastore resource:create --schema ./book.schema.json book`)}`);
   } else {
-    console.log(`Available resources:`);
+    console.log(chalk.green('Available resources:'));
     for (const resource of list) {
       console.log(`- ${resource.name}`);
     }
