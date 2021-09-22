@@ -1,6 +1,7 @@
 import chalk = require("chalk");
 import { api } from "../../api";
-import { hint } from "../hint";
+import { hint } from "../logs/hint";
+import { info } from "../logs/info";
 
 
 export async function printAvailableResources (namespace?: string | undefined) {
@@ -13,9 +14,9 @@ export async function printAvailableResources (namespace?: string | undefined) {
     hint(`Example to create a resource named "book":`);
     hint(`    ${chalk.green(`jastore resource:create --schema ./book.schema.json book`)}`);
   } else {
-    console.log(chalk.green('Available resources:'));
+    info(chalk.green('Available resources:'));
     for (const resource of list) {
-      console.log(`- ${resource.name}`);
+      info(`- ${resource.name}`);
     }
   }
 

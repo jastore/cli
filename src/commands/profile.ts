@@ -15,8 +15,8 @@ export default class Profile extends Command {
     try {
       const profile = await api.getProfile();
       this.log(profile)
-    } catch (e) {
-      // console.log(e.response.headers)
+    } catch (e: any) {
+      // info(e.response.headers)
       if (e.response?.status === 401) {
         this.log(`Not connected`);
       } else {

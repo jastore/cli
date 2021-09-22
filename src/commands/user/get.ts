@@ -2,6 +2,7 @@ import {Command, flags} from '@oclif/command';
 import { agent, api } from '../../api';
 import cli from 'cli-ux';
 import * as chalk from 'chalk';
+import { info } from '../../helpers/logs/info';
 
 export default class UserGet extends Command {
   static description = 'Display informations about a user in a namespace'
@@ -19,6 +20,6 @@ export default class UserGet extends Command {
 
     const userInfo = await api.fetchUser(namespace, user);
 
-    console.log(userInfo)
+    info(userInfo)
   }
 }

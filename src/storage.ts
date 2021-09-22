@@ -3,6 +3,7 @@ import { LocalStorage } from "node-localstorage";
 import * as path from 'path';
 import * as _ from 'lodash';
 import * as fs from 'fs-extra';
+import { info } from "./helpers/logs/info";
 
 
 let localStorage: LocalStorage; 
@@ -21,16 +22,16 @@ export const store = new Proxy({} as any, {
   deleteProperty: function(target, prop) {
     localStorage.removeItem(prop as string);
 
-    console.log(localStorage.getItem(prop as string))
+    info(localStorage.getItem(prop as string))
 
     return true;
   },
   get: function(target, prop, receiver) {
-    // console.log('accessing', prop);
+    // info('accessing', prop);
     const itemName = _.camelCase(prop as string);
     const item = localStorage?.getItem(itemName) || '';
 
-    // console.log('item', item);
+    // info('item', item);
     if (!item) { return null }
 
     return JSON.parse(item);

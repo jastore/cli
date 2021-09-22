@@ -68,6 +68,7 @@
     },
     "topics": {
       "resource": { "description": "Manage resources" },
+      "resource:list": { "description": "List resources or get details about a resource" },
       "groups": { "description": "Manage user groups" },
       "user": { "description": "Manage users" },
       "namespaces": { "description": "Manage namespaces" },

@@ -1,4 +1,5 @@
 import chalk = require("chalk");
+import { info } from "../logs/info";
 
 
 export function printAccessControls (accessControls: any[]) {
@@ -11,19 +12,19 @@ export function printAccessControls (accessControls: any[]) {
   }
 
   if (!accessControls || accessControls.length === 0) {
-    console.log(`No access control in that namespace`);
-    console.log(`For more information on how to create access controls, try this command:`)
-    console.log(chalk.green(`    jastore access:create --help`))
+    info(`No access control in that namespace`);
+    info(`For more information on how to create access controls, try this command:`)
+    info(chalk.green(`    jastore access:create --help`))
   } else {
-    console.log('Access controls:')
+    info('Access controls:')
     accessControls.forEach((ac: any) => {
       const group = chalk.green(ac.group);
       const rights = chalk.green(ac.rights.split('').map((x: string) => labels[x]).join(','))
       const resource = chalk.green(ac.resource);
       const restrictions = ac.restrictions && ac.restrictions.length > 0 ? `    --> restrictions: ${ac.restrictions.join(', ')}` : null;
-      console.log(`- Group ${group} can ${rights} on resource ${resource} [access-control uuid: ${ac.uuid}]`)
+      info(`- Group ${group} can ${rights} on resource ${resource} [access-control uuid: ${ac.uuid}]`)
       if (restrictions) {
-        console.log(restrictions);
+        info(restrictions);
       }
     })
   }

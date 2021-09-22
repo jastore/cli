@@ -4,7 +4,7 @@ import { init as apiInit } from '../../api';
 
 const hook: Hook<'init'> = async function (options) {
   // process.stdout.write(`example hook running ${opts.id}\n`)
-  // console.log(args);
+  // info(args);
   localStorageInit(options.config);
   await apiInit(options.config);
 }

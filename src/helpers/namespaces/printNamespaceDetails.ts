@@ -3,10 +3,11 @@
 import chalk = require("chalk");
 import * as _ from 'lodash';
 import { api } from "../../api";
+import { info } from "../logs/info";
 
 
 export function printNamespaceDetails (namespace: any) {
-  console.log(chalk.green(`Type:`), namespace.type);
+  info(chalk.green(`Type:`), namespace.type);
 
   const knownOptions: Record<string, string> = {
     pagesRedirect: 'Pages redirect',
@@ -17,16 +18,16 @@ export function printNamespaceDetails (namespace: any) {
 
   const options = namespace.options || {};
 
-  console.log(chalk.green('Options: '))
+  info(chalk.green('Options: '))
   for (const opt in knownOptions) {
     const hasOption = Object.prototype.hasOwnProperty.call(options, opt);
-    console.log(`  - ${knownOptions[opt]}: ${hasOption ? options[opt] : '[not set]'}`);
+    info(`  - ${knownOptions[opt]}: ${hasOption ? options[opt] : '[not set]'}`);
   }
 
   const remainingOptions = _.omit(options, Object.keys(knownOptions));
 
   for (const opt in remainingOptions) {
-    console.log(`  - ${opt}: ${options[opt] || '[not set]'}`);
+    info(`  - ${opt}: ${options[opt] || '[not set]'}`);
   }
 
 }

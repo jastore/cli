@@ -49,7 +49,7 @@ ${chalk.green(`jastore access:create -g admin -r books -a CRUD`)}
 
     try {
       const resource = await api.fetchResource(namespaceCode, flags.resource);
-    } catch (e) {
+    } catch (e: any) {
       if ([404, 401].includes(e?.response?.status)) {
         return this.error(`This resource does not exist or you dont have access to it.`);
       }
@@ -62,7 +62,7 @@ ${chalk.green(`jastore access:create -g admin -r books -a CRUD`)}
       if (!group) {
         return this.error(`This group does not exist. To see existing groups, try this command: ${chalk.green(`jastore groups:list`)}`)
       }
-    } catch (e) {
+    } catch (e: any) {
       return this.error(e);
     }
 
@@ -74,7 +74,7 @@ ${chalk.green(`jastore access:create -g admin -r books -a CRUD`)}
         rights: flags.allow,
         restrictions,
       });
-    } catch (e) {
+    } catch (e: any) {
       if (e?.response?.status === 409) {
         this.error(`An access control rule already exist for that resource and group name. 
 To list existing access control rules, try the following command: 

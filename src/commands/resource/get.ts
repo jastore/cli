@@ -1,10 +1,13 @@
 import {Command, flags} from '@oclif/command';
 import { agent, api } from '../../api';
 import cli from 'cli-ux';
+import { printResourceDetails } from '../../helpers/resources/printResourceDetails';
+import { printCurrentNamespace } from '../../helpers/namespaces/printCurrentNamespace';
+import { ensureNamespace } from '../../helpers/namespaces/ensureNamespace';
 
 export default class ResourceGet extends Command {
   static description = 'Display details about a resource';
-  static aliases = ['resources:get'];
+  static aliases = ['resources:get', 'rs:get'];
 
 
   static flags = {
@@ -18,20 +21,9 @@ export default class ResourceGet extends Command {
     const {args, flags} = this.parse(ResourceGet)
     const namespace = flags.namespace || api.getCurrentNamespace();
 
-    const resource = await api.fetchResource(namespace, args.resource);
+    await ensureNamespace(namespace);
+    await printCurrentNamespace(namespace);
 
-    // console.log(resource);
-    this.log(`Namespace: ${namespace}`);
-    this.log(`Resource: ${resource.name}`);
-    this.log(`Schema properties:`);
-    if (resource.schema?.properties) {
-      for (const propName of (Object.keys(resource.schema.properties))) {
-        const props = resource.schema.properties[propName];
-        this.log(`- ${propName} (${props.type})`)
-      }
-    } else {
-      this.log(`(empty)`);
-    }
-
+    await printResourceDetails(args.resource, namespace);
   }
 }

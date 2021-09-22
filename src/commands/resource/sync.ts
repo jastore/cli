@@ -9,7 +9,7 @@ import { printCurrentNamespace } from '../../helpers/namespaces/printCurrentName
 
 export default class ResourceSync extends Command {
   static description = 'Sync a folder containing resources and schemas';
-  static aliases = ['resources:sync', 'sync'];
+  static aliases = ['resources:sync', 'sync', 'rs:sync'];
 
 
   static flags = {

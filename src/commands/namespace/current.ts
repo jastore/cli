@@ -1,7 +1,7 @@
 import {Command, flags} from '@oclif/command'
 import chalk = require('chalk');
 import { api } from '../../api';
-import { hint } from '../../helpers/hint';
+import { hint } from '../../helpers/logs/hint';
 import { ensureNamespace } from '../../helpers/namespaces/ensureNamespace';
 import { printCurrentNamespace } from '../../helpers/namespaces/printCurrentNamespace';
 import { tips } from '../../tips';

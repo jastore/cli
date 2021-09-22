@@ -8,6 +8,7 @@ import * as fs from 'fs-extra';
 import { IConfig } from '@oclif/config';
 import { store } from './storage';
 import chalk = require('chalk');
+import { info } from './helpers/logs/info';
 
 interface IAPIPagination {
   offset?: number;
@@ -20,9 +21,7 @@ interface IAPIPagination {
 // let apiInstance: AxiosInstance;
 
 export const init = async (cliConfig: IConfig) => {
-  // console.log('ensure dir', cliConfig.dataDir);
   await fs.ensureDir(cliConfig.dataDir);
-  // console.log('success');
   // const filePath = path.join(cliConfig.dataDir, 'cookies.json');
   // await fs.ensureFile(filePath);
   // const cookieJar = new tough.CookieJar(new FileCookieStore(filePath));
@@ -72,7 +71,7 @@ export const api = {
 
   setCurrentNamespace (namespaceCode: string) {
     store.apiCurrentNamespace = namespaceCode;
-    console.log(chalk.green(`${store.apiCurrentNamespace} set as the current namespace`));
+    info(chalk.green(`${store.apiCurrentNamespace} set as the current namespace`));
   },
 
   async cleanNamespaceList (force = false) {
@@ -135,7 +134,7 @@ export const api = {
   async checkNamespaceExists (namespace: string): Promise<any> {
     try {
       return await this.fetchNamespace(namespace);
-    } catch (e) {
+    } catch (e: any) {
       if ([404, 403].includes(e?.response?.status)) {
         return false;
       }
@@ -156,7 +155,7 @@ export const api = {
     const headers = key ? { authorization : key } : {};
 
     const response = await agent().get(`/namespaces/${namespace}/resources/${resource}`, { headers });
-    // console.log(response)
+    // info(response)
 
     return response.data;
   },

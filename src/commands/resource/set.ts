@@ -9,7 +9,9 @@ import * as _ from 'lodash';
 import { printCurrentNamespace } from '../../helpers/namespaces/printCurrentNamespace';
 
 export default class ResourceSet extends Command {
-  static description = 'modify a resource'
+  static description = `Modify a resource's schema`;
+  static aliases = ['resources:set', 'rs:set'];
+
 
   static flags = {
     help: flags.help({char: 'h'}),
@@ -19,6 +21,21 @@ export default class ResourceSet extends Command {
 
   static args = [{name: 'resource', required : true }]
 
+  static examples = [
+    `# Update a resource's schema (with an inline schema):
+${chalk.green(`npx jastore resource:set [resource_name] --schema '{ "properties": { "title" : { "type" : "string" } }}'`)}
+`,
+    `# Update a resource's schema (from a json file):
+${chalk.green(`npx jastore resource:set [resource_name] --schema ./schemas/my.schema.json`)}
+`,
+    `# Update a resource in another namespace
+${chalk.green(`npx jastore resource:set [resource_name] --namespace [namespace_code] --schema ./schemas/my.schema.json`)}
+`,
+    `# Short command:
+${chalk.green(`npx jastore rs:set [resource_name] -n [namespace_code] -s ./schemas/my.schema.json`)}
+`,
+  ]
+
 
   async run() {
     const {args, flags} = this.parse(ResourceSet)
@@ -26,8 +43,6 @@ export default class ResourceSet extends Command {
     const resourceName = args.resource;
     const schemaPath = flags.schema;
     let schema = null;
-
-    
 
     await printCurrentNamespace(namespace);
 
@@ -47,7 +62,7 @@ export default class ResourceSet extends Command {
       } catch (e) {
 
       }
-      if (!schema) {
+      if (!schema || typeof schema !== 'object') {
         schema = await fs.readJSON(schemaPath);
       }
       resource.schema = schema;
