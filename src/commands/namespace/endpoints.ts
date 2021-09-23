@@ -12,8 +12,6 @@ export default class NamespaceEndpoints extends Command {
     namespace: flags.string({char: 'n', description: `namespace code, (default to current namespace)`}),
   }
 
-  static args = [{name: 'file'}]
-
   async run() {
     const {args, flags} = this.parse(NamespaceEndpoints);
     const namespace = flags.namespace || api.getCurrentNamespace();

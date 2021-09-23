@@ -10,12 +10,12 @@ export default class UserGroups extends Command {
     namespace: flags.string({char: 'n', description: `namespace code, (default to current namespace)`}),
   }
 
-  static args = [{name: 'user'}]
+  static args = [{name: 'email'}]
 
   async run() {
     const {args, flags} = this.parse(UserGroups)
     const namespace = flags.namespace || api.getCurrentNamespace();
-    const user: string = args.user || (await cli.prompt(`User email`)) || this.error(`You must provide the user's email`);
+    const user: string = args.email || (await cli.prompt(`User email`)) || this.error(`You must provide the user's email`);
 
     const userGroups = await api.listGroupsForUser(namespace, user);
 

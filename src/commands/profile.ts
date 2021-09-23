@@ -7,8 +7,6 @@ export default class Profile extends Command {
   static flags = {
   }
 
-  static args = [{name: 'file'}]
-
   async run() {
     const {args, flags} = this.parse(Profile)
 

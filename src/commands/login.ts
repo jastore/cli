@@ -12,8 +12,6 @@ export default class Login extends Command {
     password: flags.string({char: 'p', description: `Password (if empty, we will prompt you for it)`}),
   }
 
-  static args = [{name: 'file'}]
-
   async run() {
     const {args, flags} = this.parse(Login);
 
