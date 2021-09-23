@@ -1,5 +1,5 @@
 {
-  "name": "jastore",
+  "name": "@jastore/cli",
   "version": "0.1.0",
   "author": "Jastore",
   "bin": {
@@ -43,7 +43,7 @@
     "typescript": "^4.3.5"
   },
   "engines": {
-    "node": ">=8.0.0"
+    "node": ">14.0.0"
   },
   "files": [
     "/bin",
@@ -51,7 +51,7 @@
     "/npm-shrinkwrap.json",
     "/oclif.manifest.json"
   ],
-  "homepage": "https://github.com/projets/jastore-cli",
+  "homepage": "https://github.com/jastore/cli",
   "keywords": [
     "oclif"
   ],
@@ -75,7 +75,7 @@
       "access": { "description": "Manage access-controls" }
     }
   },
-  "repository": "projets/jastore-cli",
+  "repository": "https://github.com/jastore/cli",
   "scripts": {
     "postpack": "rm -f oclif.manifest.json",
     "posttest": "eslint . --ext .ts --config .eslintrc",
