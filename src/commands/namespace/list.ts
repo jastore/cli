@@ -7,7 +7,7 @@ import * as _ from 'lodash';
 
 export default class NamespaceList extends Command {
   static description = 'List the namespaces you have access to.'
-  static aliases = ['namespaces:list', 'namespaces']
+  static aliases = ['namespaces:list', 'namespaces', 'ns:list', 'ns']
 
   async run() {
     const localNamespacesCodes = Object.keys(store.tmpNamespacesKeys || {});

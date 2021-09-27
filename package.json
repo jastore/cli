@@ -1,6 +1,6 @@
 {
   "name": "@jastore/cli",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "author": "Jastore",
   "bin": {
     "jastore": "./bin/run"
@@ -67,12 +67,24 @@
       "init": "./lib/hooks/init/initstorage"
     },
     "topics": {
-      "resource": { "description": "Manage resources" },
-      "resource:list": { "description": "List resources or get details about a resource" },
-      "groups": { "description": "Manage user groups" },
-      "user": { "description": "Manage users" },
-      "namespaces": { "description": "Manage namespaces" },
-      "access": { "description": "Manage access-controls" }
+      "resource": {
+        "description": "Manage resources"
+      },
+      "resource:list": {
+        "description": "List resources or get details about a resource"
+      },
+      "groups": {
+        "description": "Manage user groups"
+      },
+      "user": {
+        "description": "Manage users"
+      },
+      "namespaces": {
+        "description": "Manage namespaces"
+      },
+      "access": {
+        "description": "Manage access-controls"
+      }
     }
   },
   "repository": "https://github.com/jastore/cli",

@@ -19,7 +19,7 @@ $ npm install -g @jastore/cli
 $ jastore COMMAND
 running command...
 $ jastore (-v|--version|version)
-@jastore/cli/0.1.0 linux-x64 node-v14.15.4
+@jastore/cli/0.1.1 linux-x64 node-v14.15.4
 $ jastore --help [COMMAND]
 USAGE
   $ jastore COMMAND
@@ -93,7 +93,7 @@ EXAMPLES
   jastore access:create -g admin -r books -a CRUD
 ```
 
-_See code: [src/commands/access/create.ts](https://github.com/jastore/cli/blob/v0.1.0/src/commands/access/create.ts)_
+_See code: [src/commands/access/create.ts](https://github.com/jastore/cli/blob/v0.1.1/src/commands/access/create.ts)_
 
 ## `jastore access:delete ACCESS`
 
@@ -110,7 +110,7 @@ OPTIONS
   -n, --namespace=namespace  namespace code, (default to current namespace)
 ```
 
-_See code: [src/commands/access/delete.ts](https://github.com/jastore/cli/blob/v0.1.0/src/commands/access/delete.ts)_
+_See code: [src/commands/access/delete.ts](https://github.com/jastore/cli/blob/v0.1.1/src/commands/access/delete.ts)_
 
 ## `jastore access:list`
 
@@ -124,7 +124,7 @@ OPTIONS
   -n, --namespace=namespace  namespace code, (default to current namespace)
 ```
 
-_See code: [src/commands/access/list.ts](https://github.com/jastore/cli/blob/v0.1.0/src/commands/access/list.ts)_
+_See code: [src/commands/access/list.ts](https://github.com/jastore/cli/blob/v0.1.1/src/commands/access/list.ts)_
 
 ## `jastore groups:add-user`
 
@@ -140,7 +140,7 @@ OPTIONS
   -u, --user=user            email of the user
 ```
 
-_See code: [src/commands/groups/add-user.ts](https://github.com/jastore/cli/blob/v0.1.0/src/commands/groups/add-user.ts)_
+_See code: [src/commands/groups/add-user.ts](https://github.com/jastore/cli/blob/v0.1.1/src/commands/groups/add-user.ts)_
 
 ## `jastore groups:create GROUP`
 
@@ -163,7 +163,7 @@ EXAMPLE
   jastore groups:create mygroup
 ```
 
-_See code: [src/commands/groups/create.ts](https://github.com/jastore/cli/blob/v0.1.0/src/commands/groups/create.ts)_
+_See code: [src/commands/groups/create.ts](https://github.com/jastore/cli/blob/v0.1.1/src/commands/groups/create.ts)_
 
 ## `jastore groups:list`
 
@@ -177,7 +177,7 @@ OPTIONS
   -n, --namespace=namespace  namespace code, (default to current namespace)
 ```
 
-_See code: [src/commands/groups/list.ts](https://github.com/jastore/cli/blob/v0.1.0/src/commands/groups/list.ts)_
+_See code: [src/commands/groups/list.ts](https://github.com/jastore/cli/blob/v0.1.1/src/commands/groups/list.ts)_
 
 ## `jastore help [COMMAND]`
 
@@ -211,7 +211,7 @@ OPTIONS
   -u, --user=user          Username (email)
 ```
 
-_See code: [src/commands/login.ts](https://github.com/jastore/cli/blob/v0.1.0/src/commands/login.ts)_
+_See code: [src/commands/login.ts](https://github.com/jastore/cli/blob/v0.1.1/src/commands/login.ts)_
 
 ## `jastore namespace:clean`
 
@@ -230,7 +230,7 @@ ALIASES
   $ jastore clean
 ```
 
-_See code: [src/commands/namespace/clean.ts](https://github.com/jastore/cli/blob/v0.1.0/src/commands/namespace/clean.ts)_
+_See code: [src/commands/namespace/clean.ts](https://github.com/jastore/cli/blob/v0.1.1/src/commands/namespace/clean.ts)_
 
 ## `jastore namespace:create [ALIAS]`
 
@@ -247,7 +247,7 @@ ALIASES
   $ jastore namespaces:create
 ```
 
-_See code: [src/commands/namespace/create.ts](https://github.com/jastore/cli/blob/v0.1.0/src/commands/namespace/create.ts)_
+_See code: [src/commands/namespace/create.ts](https://github.com/jastore/cli/blob/v0.1.1/src/commands/namespace/create.ts)_
 
 ## `jastore namespace:current [NAMESPACE]`
 
@@ -269,7 +269,7 @@ ALIASES
   $ jastore ns:use
 ```
 
-_See code: [src/commands/namespace/current.ts](https://github.com/jastore/cli/blob/v0.1.0/src/commands/namespace/current.ts)_
+_See code: [src/commands/namespace/current.ts](https://github.com/jastore/cli/blob/v0.1.1/src/commands/namespace/current.ts)_
 
 ## `jastore namespace:endpoints`
 
@@ -287,7 +287,7 @@ ALIASES
   $ jastore endpoints
 ```
 
-_See code: [src/commands/namespace/endpoints.ts](https://github.com/jastore/cli/blob/v0.1.0/src/commands/namespace/endpoints.ts)_
+_See code: [src/commands/namespace/endpoints.ts](https://github.com/jastore/cli/blob/v0.1.1/src/commands/namespace/endpoints.ts)_
 
 ## `jastore namespace:get [NAMESPACE]`
 
@@ -305,7 +305,7 @@ ALIASES
   $ jastore ns:get
 ```
 
-_See code: [src/commands/namespace/get.ts](https://github.com/jastore/cli/blob/v0.1.0/src/commands/namespace/get.ts)_
+_See code: [src/commands/namespace/get.ts](https://github.com/jastore/cli/blob/v0.1.1/src/commands/namespace/get.ts)_
 
 ## `jastore namespace:list`
 
@@ -320,7 +320,7 @@ ALIASES
   $ jastore namespaces
 ```
 
-_See code: [src/commands/namespace/list.ts](https://github.com/jastore/cli/blob/v0.1.0/src/commands/namespace/list.ts)_
+_See code: [src/commands/namespace/list.ts](https://github.com/jastore/cli/blob/v0.1.1/src/commands/namespace/list.ts)_
 
 ## `jastore namespace:set`
 
@@ -342,7 +342,7 @@ EXAMPLES
   $ jastore namespace:set -n newname -o key1:value1 -o key2:value2
 ```
 
-_See code: [src/commands/namespace/set.ts](https://github.com/jastore/cli/blob/v0.1.0/src/commands/namespace/set.ts)_
+_See code: [src/commands/namespace/set.ts](https://github.com/jastore/cli/blob/v0.1.1/src/commands/namespace/set.ts)_
 
 ## `jastore pages`
 
@@ -360,7 +360,7 @@ ALIASES
   $ jastore page
 ```
 
-_See code: [src/commands/pages.ts](https://github.com/jastore/cli/blob/v0.1.0/src/commands/pages.ts)_
+_See code: [src/commands/pages.ts](https://github.com/jastore/cli/blob/v0.1.1/src/commands/pages.ts)_
 
 ## `jastore profile`
 
@@ -371,7 +371,7 @@ USAGE
   $ jastore profile
 ```
 
-_See code: [src/commands/profile.ts](https://github.com/jastore/cli/blob/v0.1.0/src/commands/profile.ts)_
+_See code: [src/commands/profile.ts](https://github.com/jastore/cli/blob/v0.1.1/src/commands/profile.ts)_
 
 ## `jastore reset`
 
@@ -385,7 +385,7 @@ OPTIONS
   -h, --help  show CLI help
 ```
 
-_See code: [src/commands/reset.ts](https://github.com/jastore/cli/blob/v0.1.0/src/commands/reset.ts)_
+_See code: [src/commands/reset.ts](https://github.com/jastore/cli/blob/v0.1.1/src/commands/reset.ts)_
 
 ## `jastore resource:create [RESOURCENAME]`
 
@@ -406,7 +406,7 @@ ALIASES
   $ jastore rs:create
 ```
 
-_See code: [src/commands/resource/create.ts](https://github.com/jastore/cli/blob/v0.1.0/src/commands/resource/create.ts)_
+_See code: [src/commands/resource/create.ts](https://github.com/jastore/cli/blob/v0.1.1/src/commands/resource/create.ts)_
 
 ## `jastore resource:get RESOURCE`
 
@@ -425,7 +425,7 @@ ALIASES
   $ jastore rs:get
 ```
 
-_See code: [src/commands/resource/get.ts](https://github.com/jastore/cli/blob/v0.1.0/src/commands/resource/get.ts)_
+_See code: [src/commands/resource/get.ts](https://github.com/jastore/cli/blob/v0.1.1/src/commands/resource/get.ts)_
 
 ## `jastore resource:list [RESOURCE]`
 
@@ -460,7 +460,7 @@ EXAMPLES
   npx jastore rs [resource_name]
 ```
 
-_See code: [src/commands/resource/list.ts](https://github.com/jastore/cli/blob/v0.1.0/src/commands/resource/list.ts)_
+_See code: [src/commands/resource/list.ts](https://github.com/jastore/cli/blob/v0.1.1/src/commands/resource/list.ts)_
 
 ## `jastore resource:set RESOURCE`
 
@@ -493,7 +493,7 @@ EXAMPLES
   npx jastore rs:set [resource_name] -n [namespace_code] -s ./schemas/my.schema.json
 ```
 
-_See code: [src/commands/resource/set.ts](https://github.com/jastore/cli/blob/v0.1.0/src/commands/resource/set.ts)_
+_See code: [src/commands/resource/set.ts](https://github.com/jastore/cli/blob/v0.1.1/src/commands/resource/set.ts)_
 
 ## `jastore resource:sync [FOLDER]`
 
@@ -514,7 +514,7 @@ ALIASES
   $ jastore rs:sync
 ```
 
-_See code: [src/commands/resource/sync.ts](https://github.com/jastore/cli/blob/v0.1.0/src/commands/resource/sync.ts)_
+_See code: [src/commands/resource/sync.ts](https://github.com/jastore/cli/blob/v0.1.1/src/commands/resource/sync.ts)_
 
 ## `jastore signup`
 
@@ -528,7 +528,7 @@ OPTIONS
   -h, --help  show CLI help
 ```
 
-_See code: [src/commands/signup.ts](https://github.com/jastore/cli/blob/v0.1.0/src/commands/signup.ts)_
+_See code: [src/commands/signup.ts](https://github.com/jastore/cli/blob/v0.1.1/src/commands/signup.ts)_
 
 ## `jastore status`
 
@@ -542,7 +542,7 @@ OPTIONS
   -h, --help  show CLI help
 ```
 
-_See code: [src/commands/status.ts](https://github.com/jastore/cli/blob/v0.1.0/src/commands/status.ts)_
+_See code: [src/commands/status.ts](https://github.com/jastore/cli/blob/v0.1.1/src/commands/status.ts)_
 
 ## `jastore user:create EMAIL`
 
@@ -564,7 +564,7 @@ EXAMPLE
   npx jastore user:create user@email.com --password userpassword
 ```
 
-_See code: [src/commands/user/create.ts](https://github.com/jastore/cli/blob/v0.1.0/src/commands/user/create.ts)_
+_See code: [src/commands/user/create.ts](https://github.com/jastore/cli/blob/v0.1.1/src/commands/user/create.ts)_
 
 ## `jastore user:delete EMAIL`
 
@@ -585,7 +585,7 @@ EXAMPLE
   npx jastore user:delete user@email.com
 ```
 
-_See code: [src/commands/user/delete.ts](https://github.com/jastore/cli/blob/v0.1.0/src/commands/user/delete.ts)_
+_See code: [src/commands/user/delete.ts](https://github.com/jastore/cli/blob/v0.1.1/src/commands/user/delete.ts)_
 
 ## `jastore user:get [EMAIL]`
 
@@ -599,7 +599,7 @@ OPTIONS
   -n, --namespace=namespace  namespace code, (default to current namespace)
 ```
 
-_See code: [src/commands/user/get.ts](https://github.com/jastore/cli/blob/v0.1.0/src/commands/user/get.ts)_
+_See code: [src/commands/user/get.ts](https://github.com/jastore/cli/blob/v0.1.1/src/commands/user/get.ts)_
 
 ## `jastore user:groups [EMAIL]`
 
@@ -613,7 +613,7 @@ OPTIONS
   -n, --namespace=namespace  namespace code, (default to current namespace)
 ```
 
-_See code: [src/commands/user/groups.ts](https://github.com/jastore/cli/blob/v0.1.0/src/commands/user/groups.ts)_
+_See code: [src/commands/user/groups.ts](https://github.com/jastore/cli/blob/v0.1.1/src/commands/user/groups.ts)_
 
 ## `jastore user:list`
 
@@ -639,5 +639,5 @@ EXAMPLES
   npx jastore user:list --limit 10 --offset 20 --sort email,desc
 ```
 
-_See code: [src/commands/user/list.ts](https://github.com/jastore/cli/blob/v0.1.0/src/commands/user/list.ts)_
+_See code: [src/commands/user/list.ts](https://github.com/jastore/cli/blob/v0.1.1/src/commands/user/list.ts)_
 <!-- commandsstop -->

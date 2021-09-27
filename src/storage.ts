@@ -11,6 +11,7 @@ let localStorage: LocalStorage;
 export const storage = () => localStorage;
 
 export const init = (config: IConfig) => {
+  console.log('init storage at', config.dataDir);
   localStorage = new LocalStorage(path.join(config.dataDir, `jastore.data.json`));
 }
 

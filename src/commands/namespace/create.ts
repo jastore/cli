@@ -5,7 +5,7 @@ import { getDb } from '../../knex';
 
 export default class NamespaceCreate extends Command {
   static description = 'Create a new namespace'
-  static aliases = ['namespaces:create']
+  static aliases = ['namespaces:create', 'ns:create']
 
 
   static flags = {
